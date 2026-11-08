@@ -230,8 +230,16 @@
     const message = document.getElementById('form-message');
     document.getElementById('login-form').addEventListener('submit', (event) => {
       event.preventDefault();
-      message.textContent = 'A tela está pronta. A autenticação será conectada na próxima etapa do projeto.';
-      message.classList.add('visible');
+      const usuario = document.getElementById('usuario');
+      const senha = document.getElementById('senha');
+      if (!usuario.value.trim() || !senha.value.trim()) {
+        message.textContent = 'Preencha os campos de usuário e senha para continuar.';
+        message.classList.add('visible');
+        if (!usuario.value.trim()) usuario.focus();
+        else senha.focus();
+        return;
+      }
+      window.location.href = 'app.html';
     });
     document.getElementById('forgot-link').addEventListener('click', (event) => {
       event.preventDefault();

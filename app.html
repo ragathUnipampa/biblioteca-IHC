@@ -27,7 +27,7 @@ body.dark{--bg:#101a28}body.dark header,body.dark .book,body.dark .mini,body.dar
 <body>
 <header>
 <a class="brand" href="app.html"><span class="brand-img">img</span><b>Biblioteca<br>Digital</b></a>
-<nav class="nav"><a href="app.html">Início /<br>Catálogo</a><a href="#favoritos">Meus<br>Favoritos</a><a href="profile.html">Metas &amp;<br>Progresso</a><a href="#" id="reader-link">Leitor<br>Digital</a></nav>
+<nav class="nav"><a href="app.html">Início /<br>Catálogo</a><a href="#favoritos">Meus<br>Favoritos</a><a href="profile.html">Metas &amp;<br>Progresso</a><a href="reader.html">Leitor<br>Digital</a></nav>
 <div class="tools"><div class="fonttools"><button id="smaller">A-</button><button id="larger">A+</button></div><button id="theme" aria-label="Alternar tema">◐</button><button id="bell" aria-label="Notificações">♧<span style="color:#197454">•</span></button><a class="avatar" href="profile.html" title="Meu perfil" aria-label="Abrir meu perfil">MF</a></div>
 </header>
 <main>
@@ -64,8 +64,8 @@ let category='Todos os Títulos';function filterBooks(){const q=document.getElem
 document.querySelectorAll('.filter').forEach(btn=>btn.addEventListener('click',()=>{category=btn.dataset.category;document.querySelectorAll('.filter').forEach(x=>x.classList.toggle('active',x===btn));filterBooks()}));
 document.getElementById('search').addEventListener('input',filterBooks);document.getElementById('explore').addEventListener('click',()=>{filterBooks();document.getElementById('featured').scrollIntoView({behavior:'smooth',block:'center'})});
 document.querySelectorAll('.heart').forEach(btn=>btn.addEventListener('click',()=>{btn.classList.toggle('saved');const saved=btn.classList.contains('saved');btn.textContent=saved?'♥':'♡';btn.setAttribute('aria-label',saved?'Remover dos favoritos':'Adicionar aos favoritos');notify(saved?'Livro adicionado aos favoritos':'Livro removido dos favoritos')}));
-document.querySelectorAll('.read').forEach(btn=>btn.addEventListener('click',()=>notify('A leitura de “'+btn.dataset.title+'” será aberta quando o leitor digital for implementado.')));
-document.getElementById('theme').addEventListener('click',()=>document.body.classList.toggle('dark'));document.getElementById('bell').addEventListener('click',()=>notify('Você está em dia com suas leituras!'));document.getElementById('reader-link').addEventListener('click',e=>{e.preventDefault();notify('O leitor digital será desenvolvido na próxima etapa.')});
+document.querySelectorAll('.read').forEach(btn=>btn.addEventListener('click',()=>location.href='reader.html?book='+encodeURIComponent(btn.dataset.title)));
+document.getElementById('theme').addEventListener('click',()=>document.body.classList.toggle('dark'));document.getElementById('bell').addEventListener('click',()=>notify('Você está em dia com suas leituras!'));
 let fs=14;document.getElementById('larger').addEventListener('click',()=>{fs=Math.min(19,fs+1);document.body.style.fontSize=fs+'px'});document.getElementById('smaller').addEventListener('click',()=>{fs=Math.max(12,fs-1);document.body.style.fontSize=fs+'px'});
 </script>
 </body></html>

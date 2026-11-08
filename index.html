@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f6f8fc" />
+  <meta name="description" content="Biblioteca Digital — Portal do Leitor" />
+  <title>Biblioteca Digital | Acesso</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23092343'/%3E%3Cpath d='M14 18c8-3 15-2 18 1v29c-4-3-11-4-18-1zm36 0c-8-3-15-2-18 1v29c4-3 11-4 18-1z' fill='none' stroke='%23fff' stroke-width='3' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #082746;
+      --navy-deep: #062342;
+      --green: #26745d;
+      --ink: #243247;
+      --muted: #626875;
+      --line: #edf0f4;
+      --surface: #fff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: "DM Sans", Arial, sans-serif;
+      background:
+        radial-gradient(ellipse 34rem 29rem at 3% 1%, rgba(190, 244, 220, .62), transparent 68%),
+        radial-gradient(ellipse 35rem 28rem at 100% 100%, rgba(220, 230, 255, .66), transparent 72%),
+        #f6f8fc;
+    }
+    .page { min-height: 100vh; padding: 38px 7.5% 48px; }
+    .topbar {
+      width: min(1024px, 100%); margin: 0 auto 32px;
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    }
+    .brand { display: flex; align-items: center; gap: 13px; color: var(--navy); text-decoration: none; }
+    .brand-mark {
+      width: 44px; height: 44px; border-radius: 12px; background: var(--navy);
+      box-shadow: 0 3px 8px rgba(8,39,70,.14); display: grid; place-items: center; color: white;
+    }
+    .brand-mark svg { width: 25px; height: 25px; }
+    .brand-name { font: 700 18px/1.2 "Libre Baskerville", Georgia, serif; letter-spacing: -.5px; }
+    .brand-sub { margin-top: 3px; font-size: 11px; font-weight: 700; letter-spacing: .65px; color: var(--green); }
+    .access-pill {
+      display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px;
+      border: 1px solid #edf0f3; border-radius: 999px; background: rgba(255,255,255,.86);
+      color: #525762; font-size: 12px; font-weight: 600; white-space: nowrap;
+      box-shadow: 0 1px 3px rgba(20,35,55,.03);
+    }
+    .access-pill svg { color: var(--green); }
+    main { display: flex; flex-direction: column; align-items: center; }
+    .login-card {
+      width: min(448px, 100%); padding: 32px 32px 31px; border-radius: 13px;
+      background: rgba(255,255,255,.94); box-shadow: 0 12px 25px rgba(26,39,58,.09), 0 3px 7px rgba(26,39,58,.04);
+    }
+    h1 {
+      margin: 0; text-align: center; color: var(--navy);
+      font: 700 25px/1.35 "Libre Baskerville", Georgia, serif; letter-spacing: -.8px;
+    }
+    h1 .book { color: var(--green); font-family: Georgia, serif; font-size: 22px; margin: 0 5px; }
+    .intro { margin: 13px auto 26px; max-width: 350px; text-align: center; color: #5e6068; font-size: 13.5px; line-height: 1.55; }
+    .field { margin-bottom: 18px; }
+    .field-head { display: flex; align-items: center; justify-content: space-between; margin: 0 2px 10px; }
+    label { display: inline-flex; align-items: center; gap: 8px; color: var(--navy); font-size: 13px; font-weight: 700; }
+    label svg { width: 15px; height: 15px; }
+    .input-wrap { position: relative; }
+    input {
+      width: 100%; height: 49px; border: 1px solid #eef0f3; border-radius: 8px;
+      padding: 0 15px; color: #252b34; background: #fff; outline: none;
+      font: 400 13.5px "DM Sans", sans-serif; box-shadow: 0 2px 4px rgba(20,30,45,.025);
+      transition: border-color .18s, box-shadow .18s;
+    }
+    input::placeholder { color: #33343a; opacity: 1; }
+    input:focus { border-color: #6eaa96; box-shadow: 0 0 0 3px rgba(38,116,93,.10); }
+    .hint { margin: 6px 4px 0; color: #626875; font-size: 11.5px; font-weight: 600; }
+    .show-password {
+      border: 0; background: transparent; color: var(--green); cursor: pointer;
+      display: inline-flex; align-items: center; gap: 5px; padding: 3px 0;
+      font: 600 11.5px "DM Sans", sans-serif;
+    }
+    .show-password svg { width: 14px; height: 14px; }
+    .forgot-row { display: flex; justify-content: flex-end; margin: -12px 0 24px; }
+    .forgot {
+      color: var(--navy); text-decoration: none; font-size: 11.5px; font-weight: 700;
+    }
+    .forgot:hover { text-decoration: underline; }
+    .submit {
+      width: 100%; height: 49px; border: 0; border-radius: 999px; cursor: pointer;
+      background: var(--navy-deep); color: white; font: 700 13.5px "DM Sans", sans-serif;
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      box-shadow: 0 4px 7px rgba(6,35,66,.16); transition: transform .18s, background .18s;
+    }
+    .submit:hover { background: #0b345c; transform: translateY(-1px); }
+    .submit svg { width: 17px; height: 17px; }
+    .divider { display: flex; align-items: center; gap: 12px; margin: 28px 0 24px; color: #555963; font-size: 10.5px; font-weight: 600; }
+    .divider::before, .divider::after { content: ""; height: 1px; flex: 1; background: #e8eaee; }
+    .alt-access { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .alt-button {
+      min-height: 45px; border: 0; border-radius: 9px; background: #eef0f4; color: var(--navy);
+      cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 9px;
+      font: 700 11.5px "DM Sans", sans-serif; transition: background .18s;
+    }
+    .alt-button:hover { background: #e4e9ef; }
+    .alt-button svg { width: 17px; height: 17px; }
+    .alt-button:first-child svg { color: var(--green); }
+    .accessibility {
+      display: flex; align-items: flex-start; gap: 12px; margin-top: 23px; padding: 15px 14px;
+      border-radius: 9px; background: #f0f2f5; color: #555b65;
+    }
+    .accessibility svg { flex: 0 0 auto; width: 17px; height: 17px; margin-top: 2px; color: var(--green); }
+    .accessibility strong { display: block; margin-bottom: 3px; color: #30343c; font-size: 11.5px; }
+    .accessibility p { margin: 0; font-size: 11.5px; line-height: 1.55; }
+    .quote-card {
+      width: min(672px, 100%); margin-top: 32px; padding: 22px 24px 20px;
+      border: 1px solid rgba(235,238,243,.75); border-radius: 13px;
+      background: rgba(255,255,255,.9); text-align: center;
+      box-shadow: 0 2px 5px rgba(25,40,60,.025);
+    }
+    .quote-mark { color: #4e8b78; font: 700 26px Georgia, serif; line-height: 1; }
+    blockquote {
+      max-width: 490px; margin: 12px auto 16px; color: var(--navy);
+      font: italic 700 19px/1.65 "Libre Baskerville", Georgia, serif;
+    }
+    .quote-source { color: #64666e; font-size: 11.5px; letter-spacing: .15px; }
+    .quote-source span { color: var(--green); margin-left: 7px; font-size: 16px; }
+    .message { display: none; margin: 12px 2px 0; color: #a33b3b; font-size: 12px; }
+    .message.visible { display: block; }
+    @media (max-width: 600px) {
+      .page { padding: 22px 16px 30px; }
+      .topbar { margin-bottom: 25px; align-items: flex-start; }
+      .brand-mark { width: 40px; height: 40px; }
+      .brand-name { font-size: 15px; }
+      .brand-sub { font-size: 9px; }
+      .access-pill { padding: 8px 10px; font-size: 10px; gap: 5px; }
+      .login-card { padding: 28px 22px 23px; }
+      h1 { font-size: 21px; }
+      .intro { font-size: 13px; }
+      .quote-card { margin-top: 22px; padding: 19px 17px; }
+      blockquote { font-size: 16px; }
+    }
+    @media (max-width: 390px) {
+      .access-pill { max-width: 125px; white-space: normal; line-height: 1.25; }
+      .alt-access { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Biblioteca Digital, início">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 5.5c3.2-1.2 6.1-.8 8.5 1v13c-2.4-1.8-5.3-2.2-8.5-1z"/><path d="M20.5 5.5c-3.2-1.2-6.1-.8-8.5 1v13c2.4-1.8 5.3-2.2 8.5-1z"/></svg>
+        </span>
+        <span><span class="brand-name">Biblioteca Digital</span><span class="brand-sub" style="display:block">PORTAL DO LEITOR</span></span>
+      </a>
+      <div class="access-pill">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2 1.2 2.4-.1 1.1 2.1 2 1.3-.4 2.4 1 2.2-1.5 1.9-.3 2.4-2.3.7-1.6 1.8-2.3-.8-2.3.8-1.6-1.8-2.3-.7-.3-2.4-1.5-1.9 1-2.2-.4-2.4 2-1.3 1.1-2.1 2.4.1z"/><path d="M9 12l2 2 4-4"/></svg>
+        Acesso Universal &amp; Gratuito
+      </div>
+    </header>
+
+    <main>
+      <section class="login-card" aria-labelledby="login-title">
+        <h1 id="login-title"><span class="book">▤</span> PÁGINA DE ACESSO <span class="book">▤</span></h1>
+        <p class="intro">Seja bem-vindo ao seu espaço de leitura e pesquisa acadêmica.</p>
+
+        <form id="login-form">
+          <div class="field">
+            <div class="field-head">
+              <label for="usuario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20v-1.5A4.5 4.5 0 0 1 9.5 14h5a4.5 4.5 0 0 1 4.5 4.5V20z"/></svg> Usuário:</label>
+            </div>
+            <div class="input-wrap"><input id="usuario" name="usuario" type="text" placeholder="Matrícula, CPF ou E-mail institucional" autocomplete="username" required /></div>
+            <p class="hint">Ex: 20241098 ou estudante@educacao.gov.br</p>
+          </div>
+
+          <div class="field">
+            <div class="field-head">
+              <label for="senha"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></svg> Senha:</label>
+              <button class="show-password" type="button" id="toggle-password" aria-label="Mostrar senha">
+                <svg id="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                <span id="toggle-label">Mostrar</span>
+              </button>
+            </div>
+            <div class="input-wrap"><input id="senha" name="senha" type="password" placeholder="Insira sua senha de acesso" autocomplete="current-password" required /></div>
+          </div>
+          <div class="forgot-row"><a class="forgot" href="#" id="forgot-link">Esqueceu sua senha?</a></div>
+          <button class="submit" type="submit">Entrar na Biblioteca
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+          <p class="message" id="form-message" role="status"></p>
+        </form>
+
+        <div class="divider">OU ACESSE COM</div>
+        <div class="alt-access">
+          <button class="alt-button" type="button" data-provider="Gov.br">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18M5 10v9m4-9v9m6-9v9m4-9v9M3 21h18M12 3l9 5H3z"/></svg>
+            Gov.br
+          </button>
+          <button class="alt-button" type="button" data-provider="Conta Acadêmica">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3.5 3 8.5 3 12 0v-5M22 9v7"/></svg>
+            Conta Acadêmica
+          </button>
+        </div>
+        <aside class="accessibility">
+          <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="4" r="2.2"/><path d="M4 8.5a1 1 0 0 1 1.3-.7L12 10l6.7-2.2a1 1 0 1 1 .6 1.9l-5.8 1.9 1.2 3.2 2.2 5.1a1 1 0 0 1-1.8.8l-2.6-4.8h-1l-2.6 4.8a1 1 0 0 1-1.8-.8l2.2-5.1 1.2-3.2-5.8-1.9A1 1 0 0 1 4 8.5z"/></svg>
+          <div><strong>Modo de Acessibilidade Disponível</strong><p>Leitor com fontes amigáveis à dislexia, alto contraste e suporte à síntese de voz após o login.</p></div>
+        </aside>
+      </section>
+
+      <section class="quote-card" aria-label="Mensagem sobre leitura">
+        <div class="quote-mark">❞</div>
+        <blockquote>“A leitura abre portas para o conhecimento e transforma o futuro.”</blockquote>
+        <div class="quote-source">Acervo Público de Incentivo à Leitura <span>•</span></div>
+      </section>
+    </main>
+  </div>
+  <script>
+    const password = document.getElementById('senha');
+    const toggle = document.getElementById('toggle-password');
+    toggle.addEventListener('click', () => {
+      const visible = password.type === 'password';
+      password.type = visible ? 'text' : 'password';
+      document.getElementById('toggle-label').textContent = visible ? 'Ocultar' : 'Mostrar';
+      toggle.setAttribute('aria-label', visible ? 'Ocultar senha' : 'Mostrar senha');
+    });
+
+    const message = document.getElementById('form-message');
+    document.getElementById('login-form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      message.textContent = 'A tela está pronta. A autenticação será conectada na próxima etapa do projeto.';
+      message.classList.add('visible');
+    });
+    document.getElementById('forgot-link').addEventListener('click', (event) => {
+      event.preventDefault();
+      message.textContent = 'A recuperação de senha será disponibilizada quando configurarmos o sistema de autenticação.';
+      message.classList.add('visible');
+    });
+    document.querySelectorAll('[data-provider]').forEach(button => {
+      button.addEventListener('click', () => {
+        message.textContent = 'O acesso por ' + button.dataset.provider + ' será integrado em uma próxima etapa.';
+        message.classList.add('visible');
+      });
+    });
+  </script>
+</body>
+</html>

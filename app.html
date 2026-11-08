@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f7f8fc"><title>Biblioteca Digital | Início</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23092343'/%3E%3Cpath d='M14 18c8-3 15-2 18 1v29c-4-3-11-4-18-1zm36 0c-8-3-15-2-18 1v29c4-3 11-4 18-1z' fill='none' stroke='%23fff' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#08294d;--green:#197454;--green2:#2c8068;--bg:#f7f8fc;--muted:#777d88;--panel:#fff;--soft:#f0f2f6;--ink:#182f4d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#202b3b;font-family:"DM Sans",Arial,sans-serif}button,input{font:inherit}button{cursor:pointer}
+.topbar{height:80px;background:rgba(255,255,255,.68);border-bottom:1px solid #edf0f5;box-shadow:0 2px 7px #132b4608;display:flex;align-items:center;padding:0 max(calc((100vw - 1456px)/2),5.6%);gap:32px;position:sticky;top:0;z-index:10}
+.brand{display:flex;align-items:center;gap:9px;min-width:290px;color:var(--navy);text-decoration:none}.brand-placeholder{width:166px;height:32px;background:#ccc;color:#111;display:grid;place-items:center;font:12px Georgia,serif}.brand strong{font-size:18px;line-height:1.4;max-width:120px}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:40px;flex:1}.nav a{color:#454a54;text-decoration:none;font-weight:700;font-size:15px;line-height:1.35;white-space:nowrap}.nav a:hover{color:var(--green)}
+.tools{display:flex;align-items:center;gap:18px;color:#535862}.tool{border:0;background:transparent;color:inherit;padding:4px;font-weight:700}.tiny-pill{width:25px;height:9px;border-radius:8px;background:white;box-shadow:0 1px 4px #0001}.font-tools{background:#f0f1f5;border-radius:12px;padding:7px 9px;display:flex;gap:9px;font-size:12px}.icon-btn{font-size:20px;position:relative}.dot{position:absolute;width:8px;height:8px;background:var(--green);border-radius:50%;right:0;top:0}.avatar{width:31px;height:31px;border-radius:50%;background:#b8a18b;color:white;display:grid;place-items:center;font-size:11px;font-weight:800;border:2px solid white}
+main{max-width:1428px;margin:0 auto;padding:38px 0 38px}.welcome-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:37px;gap:20px}.welcome-row h1{font:700 34px/1.25 "Libre Baskerville",Georgia,serif;color:var(--navy);margin:0;letter-spacing:-1px}.search{width:332px;height:39px;background:white;border:1px solid #edf0f4;border-radius:22px;display:flex;align-items:center;padding:0 16px;gap:11px;box-shadow:0 1px 3px #102a4508}.search svg{width:17px;color:#818792;flex:none}.search input{border:0;outline:0;min-width:0;flex:1;font-size:14px;color:#333}.active-label{background:#eff0f4;color:#7a808a;border-radius:5px;padding:4px 9px;font-size:11px}
+.layout{display:grid;grid-template-columns:minmax(0, 2fr) minmax(310px,.95fr);gap:38px}.section-heading{display:flex;align-items:center;justify-content:space-between;margin:0 0 25px}.section-heading h2{margin:0;color:var(--navy);font:700 20px "Libre Baskerville",Georgia,serif;display:flex;align-items:center;gap:12px}.section-heading svg{width:20px;height:20px;stroke:var(--navy);stroke-width:2.3;fill:none}.count{border-radius:20px;background:#e8e9ed;padding:5px 11px;color:#50545d;font-size:12px;font-weight:700;white-space:nowrap}
+.books{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}.book-card{background:var(--panel);border-radius:13px;padding:16px 16px 15px;box-shadow:0 2px 5px #102a4507;min-width:0}.cover-wrap{height:299px;position:relative;overflow:hidden;border-radius:9px;background:#e7e9e8}.cover{width:100%;height:100%;object-fit:cover;display:block}.category{position:absolute;top:9px;left:8px;background:#12385b;color:white;border-radius:20px;padding:4px 10px;font-size:12px;font-weight:800;box-shadow:0 2px 4px #0002}.cover-progress{position:absolute;right:9px;bottom:8px;background:var(--green);color:white;border-radius:15px;padding:3px 9px;font-size:11px;font-weight:800}
+.book-title{font-size:18px;color:var(--navy);font-weight:700;margin:16px 0 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.author{font-size:12px;color:#4f5662;font-weight:600}.page-count{font-size:12px;color:#818691;margin-top:6px;font-weight:600}.progress-label{display:flex;justify-content:space-between;margin:13px 0 6px;color:#525964;font-size:12px;font-weight:700}.progress-label strong{color:var(--green)}.bar{height:8px;border-radius:10px;background:#e9ebef;overflow:hidden}.bar span{height:100%;display:block;background:var(--green);border-radius:10px}.continue{width:100%;margin-top:16px;height:41px;border:0;border-radius:9px;background:var(--navy);color:white;font-size:13px;font-weight:800}.continue:hover{background:#10406b}
+.weekly{margin-top:31px;background:#f0f2f6;border-radius:13px;padding:25px 25px 22px}.weekly-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.weekly h3{margin:0;color:var(--navy);font-size:18px}.weekly p{margin:4px 0 0;color:#565c66;font-size:14px}.legend{font-size:12px;font-weight:700;color:#525964;display:flex;gap:8px;align-items:center}.legend i{width:12px;height:12px;border-radius:50%;background:var(--green);display:inline-block}.chart{height:145px;display:flex;align-items:flex-end;justify-content:space-around;padding:0 8px 0;margin-top:8px}.day{height:100%;width:12%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:8px;position:relative}.column{width:36px;max-width:72%;border-radius:4px 4px 0 0;background:#a9c9c0;min-height:5px}.day:nth-child(2) .column{background:#85b1a4}.day:nth-child(3) .column{background:#9bbeb4}.day:nth-child(4) .column{background:#57947f}.day:nth-child(5) .column{background:#176e50}.day:nth-child(6) .column,.day:nth-child(7) .column{background:#eceef2}.day label{font-size:12px;color:#858a94;font-weight:700}.day.today label{color:var(--navy)}.today-tag{position:absolute;bottom:calc(var(--h) + 33px);background:var(--navy);color:white;border-radius:4px;padding:4px 8px;font-size:11px;font-weight:800;white-space:nowrap}
+.right-col{display:flex;flex-direction:column;gap:24px;padding-top:0}.status-card{background:white;border-radius:14px;padding:25px 24px 24px;box-shadow:0 2px 5px #102a4508}.status-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}.status-head h2{font-size:18px;color:var(--navy);margin:0;display:flex;align-items:center;gap:8px}.status-head h2 svg{width:19px;color:var(--green)}.updated{font-size:11px;color:#858994;font-weight:700;white-space:nowrap}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px}.stat{background:#f0f2f6;border-radius:10px;padding:16px 16px 14px;min-height:124px}.stat small{font-size:12px;color:#555b66;font-weight:700}.stat b{display:block;font:700 27px "Libre Baskerville",Georgia,serif;color:var(--navy);margin:6px 0 4px}.stat span{font-size:12px;color:var(--green);font-weight:700;display:flex;align-items:center;gap:5px}.stat span svg{width:13px;height:13px}
+.goal{margin-top:15px;background:#f0f2f6;border-radius:10px;padding:17px 16px 15px}.goal-top{display:flex;justify-content:space-between;gap:10px;align-items:center}.goal h3{font-size:18px;color:var(--navy);margin:0}.goal p{font-size:13px;color:#535964;margin:4px 0 10px}.ring{width:47px;height:47px;border-radius:50%;border:4px solid var(--green);border-left-color:#d5e4de;display:grid;place-items:center;color:var(--green);font-size:12px;font-weight:800;flex:none}.goal .bar{height:8px}.goal-foot{display:flex;justify-content:space-between;align-items:center;margin-top:11px;font-size:11px;color:#555b65;font-weight:700}.add-time{border:0;background:none;color:var(--navy);font-size:12px;font-weight:800;padding:0}.add-time:hover{color:var(--green)}
+.quote{position:relative;overflow:hidden;background:#062748;color:white;border-radius:13px;padding:25px 24px 24px;min-height:199px}.quote small{color:#8fe0c3;font-size:12px;font-weight:800;letter-spacing:.3px}.quote blockquote{margin:9px 0 7px;font:italic 700 17px/1.55 "Libre Baskerville",Georgia,serif;position:relative;z-index:1}.quote cite{font-style:normal;color:#8ca8c7;font-size:11px;font-weight:700}.quote-mark{position:absolute;right:8px;bottom:-26px;font:700 105px Georgia,serif;color:#ffffff13}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#08294d;color:white;padding:12px 18px;border-radius:9px;box-shadow:0 5px 18px #0002;display:none;z-index:20;font-size:13px}.toast.show{display:block}
+body.dark{--bg:#101a28;--panel:#1b293a;--ink:#e8edf5;color:#e8edf5}body.dark .topbar,body.dark .status-card,body.dark .book-card{background:#1b293a;border-color:#26374b}body.dark .nav a,body.dark .book-title,body.dark .section-heading h2,body.dark .welcome-row h1,body.dark .status-head h2,body.dark .goal h3{color:#e4edf8}body.dark .weekly,body.dark .stat,body.dark .goal{background:#243448}body.dark .search{background:#1b293a;border-color:#2c3c50}body.dark .search input{background:transparent;color:white}
+@media(max-width:1250px){main{padding:32px 5.5%}.topbar{padding:0 5.5%;gap:20px}.brand{min-width:235px}.brand-placeholder{width:120px}.nav{gap:22px}.layout{gap:24px}.cover-wrap{height:260px}}
+@media(max-width:950px){.topbar{height:auto;min-height:76px;flex-wrap:wrap;padding:14px 5%;gap:12px}.brand{min-width:0;flex:1}.nav{order:3;flex-basis:100%;justify-content:space-between}.tools{gap:12px}.layout{grid-template-columns:1fr}.right-col{display:grid;grid-template-columns:1fr 1fr}.cover-wrap{height:300px}}
+@media(max-width:620px){main{padding:25px 16px}.topbar{padding:12px 16px}.brand-placeholder{width:72px;height:28px}.brand strong{font-size:15px}.nav{gap:14px;overflow-x:auto;justify-content:flex-start;padding:5px 0}.nav a{font-size:12px}.tools{gap:7px}.tools .tiny-pill{display:none}.font-tools{padding:6px}.welcome-row{align-items:flex-start;flex-direction:column;margin-bottom:25px}.welcome-row h1{font-size:27px}.search{width:100%}.layout{gap:25px}.section-heading{align-items:flex-start}.section-heading h2{font-size:17px}.books{grid-template-columns:1fr;gap:16px}.book-card{display:grid;grid-template-columns:116px 1fr;grid-template-rows:auto auto auto auto auto;column-gap:14px;padding:12px}.cover-wrap{grid-row:1/6;height:176px}.book-title{margin:4px 0 2px;font-size:16px}.author,.page-count,.progress-label,.bar,.continue{grid-column:2}.progress-label{margin:8px 0 4px}.continue{margin-top:10px;height:36px}.right-col{grid-template-columns:1fr}.weekly{padding:20px 14px}.weekly h3{font-size:16px}.weekly p{font-size:12px}.chart{height:125px}.column{width:26px}.status-card{padding:20px 16px}.quote{min-height:unset}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="app.html"><span class="brand-placeholder">img</span><strong>Biblioteca<br>Digital</strong></a>
+  <nav class="nav" aria-label="Navegação principal"><a href="#catalogo">Início /<br>Catálogo</a><a href="#favoritos">Meus<br>Favoritos</a><a href="#metas">Metas &amp;<br>Progresso</a><a href="#leitor">Leitor<br>Digital</a></nav>
+  <div class="tools"><span class="tiny-pill"></span><div class="font-tools"><button class="tool" id="font-down" aria-label="Diminuir fonte">A-</button><button class="tool" id="font-up" aria-label="Aumentar fonte">A+</button></div><button class="tool icon-btn" id="theme" aria-label="Alternar tema">◐</button><button class="tool icon-btn" id="notifications" aria-label="Notificações">♧<i class="dot"></i></button><div class="avatar" title="Mariana Ferreira">MF</div></div>
+</header>
+<main id="catalogo">
+  <div class="welcome-row"><h1>Bem-vinda, Mariana Ferreira!</h1><label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="10.8" cy="10.8" r="6.5"/><path d="m16 16 5 5"/></svg><input id="search" placeholder="Buscar nos favoritos..." aria-label="Buscar nos favoritos"><span class="active-label">Ativo</span></label></div>
+  <div class="layout">
+    <section id="favoritos">
+      <div class="section-heading"><h2><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/><path d="M9 8h6"/></svg>Seus Favoritos &amp; Leituras em Andamento</h2><span class="count">3 em progresso</span></div>
+      <div class="books" id="books">
+        <article class="book-card" data-search="pedagogia da autonomia pedagogia paulo freire">
+          <div class="cover-wrap"><img class="cover" src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=650&h=900&fit=crop" alt="Capa ilustrativa de livro de Pedagogia"><span class="category">Pedagogia</span><span class="cover-progress">80%</span></div>
+          <h3 class="book-title">Pedagogia da...</h3><div class="author">Paulo Freire</div><div class="page-count">Página 116 de 144</div>
+          <div class="progress-label"><span>Progresso</span><strong>80%</strong></div><div class="bar"><span style="width:80%"></span></div><button class="continue" data-book="Pedagogia da Autonomia">▷ Continuar Leitura</button>
+        </article>
+        <article class="book-card" data-search="dom casmurro literatura machado de assis">
+          <div class="cover-wrap"><img class="cover" src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=650&h=900&fit=crop" alt="Capa ilustrativa de Dom Casmurro"><span class="category">Literatura</span><span class="cover-progress">45%</span></div>
+          <h3 class="book-title">Dom Casmurro</h3><div class="author">Machado de Assis</div><div class="page-count">Página 115 de 256</div>
+          <div class="progress-label"><span>Progresso</span><strong>45%</strong></div><div class="bar"><span style="width:45%"></span></div><button class="continue" data-book="Dom Casmurro">▷ Continuar Leitura</button>
+        </article>
+        <article class="book-card" data-search="estruturas de dados tecnologia thomas h cormen">
+          <div class="cover-wrap"><img class="cover" src="https://images.unsplash.com/photo-1532012197267-da84d127e765?w=650&h=900&fit=crop" alt="Capa ilustrativa de livro de Tecnologia"><span class="category">Tecnologia</span><span class="cover-progress">20%</span></div>
+          <h3 class="book-title">Estruturas de Dados</h3><div class="author">Thomas H. Cormen</div><div class="page-count">Página 62 de 310</div>
+          <div class="progress-label"><span>Progresso</span><strong>20%</strong></div><div class="bar"><span style="width:20%"></span></div><button class="continue" data-book="Estruturas de Dados">▷ Continuar Leitura</button>
+        </article>
+      </div>
+      <section class="weekly" id="metas">
+        <div class="weekly-head"><div><h3>Ritmo Semanal de Leitura</h3><p>Média de 38 páginas por dia nesta semana</p></div><span class="legend"><i></i> Minutos Lidos</span></div>
+        <div class="chart" aria-label="Gráfico semanal de minutos lidos">
+          <div class="day"><div class="column" style="height:49px"></div><label>Seg</label></div>
+          <div class="day"><div class="column" style="height:66px"></div><label>Ter</label></div>
+          <div class="day"><div class="column" style="height:55px"></div><label>Qua</label></div>
+          <div class="day"><div class="column" style="height:87px"></div><label>Qui</label></div>
+          <div class="day today"><span class="today-tag">Hoje: 35m</span><div class="column" style="height:86px"></div><label>Sex</label></div>
+          <div class="day"><div class="column" style="height:21px"></div><label>Sáb</label></div>
+          <div class="day"><div class="column" style="height:15px"></div><label>Dom</label></div>
+        </div>
+      </section>
+    </section>
+    <aside class="right-col">
+      <section class="status-card">
+        <div class="status-head"><h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M7 16v-3m5 3V8m5 8v-6"/></svg>Status de Leitura</h2><span class="updated">Atualizado agora</span></div>
+        <div class="stats">
+          <div class="stat"><small>Livros Lidos</small><b>14</b><span>⌁ Obras concluídas</span></div>
+          <div class="stat"><small>Livros do Dia</small><b>1</b><span>◷ Em foco hoje</span></div>
+        </div>
+        <div class="goal"><div class="goal-top"><div><h3>Meta Diária</h3><p>Objetivo: 45 min/dia</p></div><div class="ring" id="ring">78%</div></div>
+          <div class="bar"><span id="goal-bar" style="width:78%"></span></div><div class="goal-foot"><span id="goal-text">35 de 45 minutos lidos</span><button class="add-time" id="add-time">⊕ &nbsp;+10 min</button></div>
+        </div>
+      </section>
+      <section class="quote"><small>INSPIRAÇÃO DO DIA</small><blockquote>”Ensinar não é transferir conhecimento, mas criar as possibilidades para a sua própria produção ou a sua construção.”</blockquote><cite>— Paulo Freire</cite><span class="quote-mark">”</span></section>
+    </aside>
+  </div>
+</main>
+<div class="toast" id="toast" role="status"></div>
+<script>
+const toast=document.getElementById('toast');let toastTimer;
+function notify(text){toast.textContent=text;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),2600)}
+document.querySelectorAll('.continue').forEach(button=>button.addEventListener('click',()=>notify('Abrindo "'+button.dataset.book+'". O leitor digital será implementado na próxima etapa.')));
+document.getElementById('search').addEventListener('input',e=>{const q=e.target.value.toLocaleLowerCase('pt-BR').trim();document.querySelectorAll('.book-card').forEach(card=>card.style.display=card.dataset.search.includes(q)?'':'none')});
+let minutes=35;document.getElementById('add-time').addEventListener('click',()=>{minutes+=10;const pct=Math.min(100,Math.round(minutes/45*100));document.getElementById('ring').textContent=pct+'%';document.getElementById('goal-bar').style.width=pct+'%';document.getElementById('goal-text').textContent=minutes+' de 45 minutos lidos';notify('Mais 10 minutos adicionados à sua meta!')});
+document.getElementById('theme').addEventListener('click',()=>document.body.classList.toggle('dark'));
+let fontSize=16;document.getElementById('font-up').addEventListener('click',()=>{fontSize=Math.min(20,fontSize+1);document.body.style.fontSize=fontSize+'px'});document.getElementById('font-down').addEventListener('click',()=>{fontSize=Math.max(13,fontSize-1);document.body.style.fontSize=fontSize+'px'});
+document.getElementById('notifications').addEventListener('click',()=>notify('Você está em dia com suas leituras!'));
+</script>
+</body></html>

@@ -26,7 +26,7 @@ header .nav,.topbar .nav{flex:0 0 auto;justify-content:center;gap:clamp(24px,4.2
 @media(max-width:620px){header .nav,.topbar .nav{justify-content:center;gap:22px;overflow:visible;padding:5px 0}}
 </style></head>
 <body>
-<header><a class="brand" href="app.html"><span class="brand-img">img</span><b>Biblioteca<br>Digital</b></a><nav class="nav"><a href="app.html">Início</a><a href="profile.html#favoritos">Favoritos</a><a href="relatorios.html">Relatório</a></nav><div class="tools"><button id="theme" aria-label="Alternar contraste">◐</button><a class="avatar" href="profile.html">MF</a></div></header>
+<header><a class="brand" href="app.html"><span class="brand-img">img</span><b>Biblioteca<br>Digital</b></a><nav class="nav"><a href="app.html">Início</a><a href="profile.html#favoritos">Favoritos</a><a href="relatorios.html">Relatório</a></nav><div class="tools"><button id="theme" aria-label="Alternar contraste">◐</button><button type="button" class="avatar" title="Meu perfil" aria-label="Abrir menu do perfil">MF</button></div></header>
 <main>
 <a class="back" href="app.html">← Voltar ao catálogo</a>
 <div class="intro"><p class="eyebrow">ACOMPANHAMENTO PESSOAL</p><h1>Relatórios de Leitura</h1><p>Acompanhe seus hábitos, suas metas e sua evolução como leitor.</p></div>
@@ -61,5 +61,46 @@ header .nav,.topbar .nav{flex:0 0 auto;justify-content:center;gap:clamp(24px,4.2
 </main>
 <script>document.getElementById('theme').addEventListener('click',()=>document.body.classList.toggle('dark'));
 (()=>{const header=document.querySelector('header, .topbar');if(!header)return;let lastY=window.scrollY;let ticking=false;header.classList.add('scroll-aware');window.addEventListener('scroll',()=>{if(ticking)return;ticking=true;window.requestAnimationFrame(()=>{const y=window.scrollY;const delta=y-lastY;if(y<70)header.classList.remove('header-hidden');else if(delta>6)header.classList.add('header-hidden');else if(delta< -6)header.classList.remove('header-hidden');lastY=y;ticking=false})},{passive:true})})();
+</script>
+
+<script>
+(()=> {
+  const avatar=document.querySelector('.avatar'); if(!avatar)return;
+  const PHOTO_KEY='biblioteca-perfil-foto-v1', NAME_KEY='biblioteca-perfil-nome-v1';
+  const initials=name=>name.trim().split(/\s+/).slice(0,2).map(p=>p[0]||'').join('').toUpperCase()||'MF';
+  const applyAvatar=()=>{
+    const currentPhoto=localStorage.getItem(PHOTO_KEY), currentName=localStorage.getItem(NAME_KEY)||'Mariana Ferreira';
+    avatar.replaceChildren(); avatar.setAttribute('aria-label','Abrir menu do perfil de '+currentName); avatar.title='Perfil de '+currentName;
+    if(currentPhoto){const img=document.createElement('img');img.src=currentPhoto;img.alt='Foto de perfil';img.className='profile-avatar-image';avatar.appendChild(img);}
+    else avatar.textContent=initials(currentName);
+  };
+  applyAvatar(); const tools=avatar.parentElement; tools.style.position='relative';
+  const menu=document.createElement('div'); menu.className='profile-menu'; menu.hidden=true;
+  menu.innerHTML='<div class="profile-menu-heading">Minha conta</div><button type="button" class="profile-menu-action" data-action="photo"><span>▧</span> Enviar uma foto do computador</button><button type="button" class="profile-menu-action" data-action="name"><span>✎</span> Alterar nome de exibição</button><a class="profile-menu-action" href="profile.html#favoritos"><span>♡</span> Meus favoritos</a><input type="file" accept="image/*" class="profile-photo-input" hidden>';
+  tools.appendChild(menu);
+  const style=document.createElement('style');
+  style.textContent='.avatar{position:relative;overflow:hidden;flex:none;padding:0;cursor:pointer}.profile-avatar-image{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}.profile-menu{position:absolute;right:0;top:calc(100% + 12px);z-index:30;width:255px;padding:9px;background:#fff;border:1px solid #e5eaf0;border-radius:12px;box-shadow:0 12px 32px #102a4525;color:#263142}.profile-menu[hidden]{display:none}.profile-menu-heading{padding:8px 10px 10px;font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:#78818d}.profile-menu-action{width:100%;display:flex;align-items:center;gap:10px;padding:11px 10px;border:0;border-radius:8px;background:transparent;color:#263d56;text-decoration:none;text-align:left;font:600 12px "DM Sans",Arial,sans-serif;cursor:pointer}.profile-menu-action:hover{background:#eff5f2;color:#176b4d}.profile-menu-action span{width:18px;text-align:center;font-size:17px;color:#197454}body.dark .profile-menu{background:#1b293a;border-color:#40516a;color:#e5edf8}body.dark .profile-menu-action{color:#e5edf8}body.dark .profile-menu-action:hover{background:#263b4d}';
+  document.head.appendChild(style);
+  const fileInput=menu.querySelector('.profile-photo-input');
+  avatar.addEventListener('click',()=>{menu.hidden=!menu.hidden;});
+  menu.querySelector('[data-action="photo"]').addEventListener('click',()=>fileInput.click());
+  fileInput.addEventListener('change',()=>{
+    const file=fileInput.files&&fileInput.files[0];if(!file)return;
+    if(!file.type.startsWith('image/')){alert('Selecione um arquivo de imagem.');fileInput.value='';return;}
+    if(file.size>3*1024*1024){alert('A imagem deve ter no máximo 3 MB.');fileInput.value='';return;}
+    const reader=new FileReader();reader.onload=()=>{try{localStorage.setItem(PHOTO_KEY,reader.result);applyAvatar();menu.hidden=true;}catch(e){alert('Não foi possível salvar a foto. Tente uma imagem menor.');}};
+    reader.readAsDataURL(file);
+  });
+  menu.querySelector('[data-action="name"]').addEventListener('click',()=>{
+    const oldName=localStorage.getItem(NAME_KEY)||'Mariana Ferreira', next=prompt('Digite seu nome de exibição:',oldName);
+    if(next===null)return;const clean=next.trim();if(!clean){alert('O nome não pode ficar vazio.');return;}
+    localStorage.setItem(NAME_KEY,clean);applyAvatar();
+    const greeting=document.querySelector('.hero h1');if(greeting&&greeting.textContent.startsWith('Olá,'))greeting.textContent='Olá, '+clean.split(' ')[0]+'! O que você quer ler hoje?';
+    const welcome=document.querySelector('.welcome-row h1');if(welcome&&welcome.textContent.startsWith('Bem-vinda,'))welcome.textContent='Bem-vinda, '+clean+'!';
+    menu.hidden=true;
+  });
+  document.addEventListener('click',event=>{if(!tools.contains(event.target))menu.hidden=true;});
+  document.addEventListener('keydown',event=>{if(event.key==='Escape')menu.hidden=true;});
+})();
 </script>
 </body></html>

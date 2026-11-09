@@ -240,7 +240,12 @@ document.getElementById('theme').addEventListener('click',()=>document.body.clas
     if(currentPhoto){const img=document.createElement('img');img.src=currentPhoto;img.alt='Foto de perfil';img.className='profile-avatar-image';avatar.appendChild(img);}
     else avatar.textContent=initials(currentName);
   };
-  applyAvatar(); const tools=avatar.parentElement; tools.style.position='relative';
+  applyAvatar();
+  const savedDisplayName=localStorage.getItem(NAME_KEY)||'Mariana Ferreira';
+  const homeGreeting=document.querySelector('.hero h1');
+  if(homeGreeting&&homeGreeting.textContent.startsWith('Olá,'))homeGreeting.textContent='Olá, '+savedDisplayName.split(' ')[0]+'! O que você quer ler hoje?';
+  const profileGreeting=document.querySelector('.welcome-row h1');
+  if(profileGreeting&&profileGreeting.textContent.startsWith('Bem-vinda,'))profileGreeting.textContent='Bem-vinda, '+savedDisplayName+'!'; const tools=avatar.parentElement; tools.style.position='relative';
   const menu=document.createElement('div'); menu.className='profile-menu'; menu.hidden=true;
   menu.innerHTML='<div class="profile-menu-heading">Minha conta</div><button type="button" class="profile-menu-action" data-action="photo"><span>▧</span> Enviar uma foto do computador</button><button type="button" class="profile-menu-action" data-action="name"><span>✎</span> Alterar nome de exibição</button><a class="profile-menu-action" href="profile.html#favoritos"><span>♡</span> Meus favoritos</a><input type="file" accept="image/*" class="profile-photo-input" hidden>';
   tools.appendChild(menu);

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biblioteca Digital | Relatórios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#08294d;--green:#197454;--bg:#f7f8fc;--muted:#777d88;--panel:#fff;--soft:#f0f2f6}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#263142;font-family:"DM Sans",Arial,sans-serif}button{font:inherit;cursor:pointer}
+header{height:72px;background:#ffffffd9;border-bottom:1px solid #edf0f5;display:flex;align-items:center;padding:0 max(calc((100vw - 1150px)/2),5.6%);gap:26px;position:sticky;top:0;z-index:5}.brand{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--navy);min-width:290px}.brand-img{width:151px;height:29px;background:#ccc;color:#111;display:grid;place-items:center;font:11px Georgia}.brand b{font-size:16px;line-height:1.35}.nav{flex:1;display:flex;justify-content:space-between;gap:20px}.nav a{color:#4b505b;text-decoration:none;font-weight:700;font-size:13px;line-height:1.35}.tools{display:flex;align-items:center;gap:17px}.tools button{border:0;background:transparent;color:#515761;font-size:20px}.avatar{height:30px;width:30px;border-radius:50%;background:#a78c71;color:white;display:grid;place-items:center;font-size:10px;text-decoration:none;font-weight:800;border:2px solid white}
+main{max-width:1150px;margin:0 auto;padding:36px 0 65px}.back{display:inline-block;color:var(--navy);text-decoration:none;font-size:12px;font-weight:800;margin-bottom:22px}.intro{margin-bottom:26px}.eyebrow{color:var(--green);font-size:10px;letter-spacing:.5px;font-weight:800;margin:0 0 7px}.intro h1{font:700 30px/1.3 "Libre Baskerville",Georgia,serif;color:var(--navy);margin:0 0 8px}.intro p{margin:0;color:#68717e;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.panel{background:white;border:1px solid #eef0f4;border-radius:13px;padding:20px;box-shadow:0 2px 4px #102a4505}.metric small{font-size:11px;color:#606976;font-weight:700}.metric strong{display:block;font:700 30px "Libre Baskerville",Georgia,serif;color:var(--navy);margin:9px 0 6px}.metric span{font-size:11px;color:var(--green);font-weight:700}.section{margin-top:24px}.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:13px;gap:12px}.section-head h2{font:700 20px "Libre Baskerville",Georgia,serif;color:var(--navy);margin:0}.section-head p{font-size:11px;color:#737b87;margin:0}
+.two-col{display:grid;grid-template-columns:1.25fr 1fr;gap:14px}.panel-title{font-size:15px;font-weight:800;color:var(--navy);margin:0 0 17px}.daily-top{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#586270}.daily-top strong{color:var(--green);font-size:15px}.track{height:12px;background:#e6e9ee;border-radius:20px;overflow:hidden;margin:12px 0 8px}.track span{height:100%;display:block;background:var(--green);border-radius:20px}.daily-foot{display:flex;justify-content:space-between;font-size:11px;color:#68717e}.circle{width:92px;height:92px;border:7px solid #dcece5;border-right-color:var(--green);border-radius:50%;display:grid;place-items:center;font:700 22px "Libre Baskerville",Georgia;color:var(--green);margin:4px auto 10px}.goal{text-align:center}.goal p{font-size:11px;color:#68717e;margin:0}
+.week-chart{height:190px;display:flex;align-items:end;justify-content:space-around;gap:12px;padding:10px 8px 0;border-bottom:1px solid #e9edf2}.day-col{height:100%;flex:1;display:flex;flex-direction:column;justify-content:end;align-items:center;gap:8px}.day-col .bar{width:min(34px,75%);background:#197454;border-radius:6px 6px 0 0;min-height:5px}.day-col.today .bar{background:#08294d}.day-col small{font-size:10px;color:#68717e}.chart-legend{font-size:11px;color:#68717e;margin-top:12px}
+.streak{display:flex;align-items:center;gap:16px}.streak-icon{width:54px;height:54px;border-radius:14px;background:#e2f3eb;color:var(--green);display:grid;place-items:center;font-size:26px}.streak strong{display:block;font:700 25px "Libre Baskerville",Georgia;color:var(--navy)}.streak span{font-size:11px;color:#68717e}
+.category-list{display:grid;gap:16px}.category-row{display:grid;grid-template-columns:100px 1fr 38px;gap:12px;align-items:center;font-size:12px;color:#515b68}.category-row strong{text-align:right;color:var(--navy)}.category-track{height:9px;background:#edf0f3;border-radius:10px;overflow:hidden}.category-track span{height:100%;display:block;background:var(--green);border-radius:10px}
+.insight{background:#08294d;color:white;border-radius:13px;padding:23px}.insight small{color:#8fe0c3;font-size:10px;font-weight:800}.insight h3{font:700 18px/1.45 "Libre Baskerville",Georgia,serif;margin:10px 0}.insight p{font-size:12px;line-height:1.6;color:#d5e1ec;margin:0}
+body.dark{--bg:#101a28}body.dark header,body.dark .panel{background:#1b293a;border-color:#29394d}body.dark .intro h1,body.dark .section-head h2,body.dark .panel-title,body.dark .metric strong,body.dark .streak strong{color:#e5edf8}body.dark .metric small,body.dark .metric span,body.dark .intro p,body.dark .section-head p,body.dark .daily-top,body.dark .daily-foot,body.dark .goal p,body.dark .chart-legend,body.dark .day-col small,body.dark .category-row{color:#c5cfdb}body.dark .track,body.dark .category-track{background:#34445a}
+@media(max-width:1150px){main{padding:30px 5.5%}.brand{min-width:235px}.brand-img{width:110px}}
+@media(max-width:900px){header{height:auto;min-height:70px;padding:12px 5%;flex-wrap:wrap;gap:12px}.brand{flex:1;min-width:0}.nav{order:3;flex-basis:100%;justify-content:space-between}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){header{padding:11px 15px}.brand-img{width:65px;height:26px}.brand b{font-size:14px}.nav{overflow:auto;gap:18px;justify-content:flex-start}.nav a{font-size:11px;white-space:nowrap}.tools{gap:8px}main{padding:24px 15px 45px}.intro h1{font-size:24px}.grid{grid-template-columns:1fr 1fr;gap:9px}.panel{padding:14px}.metric strong{font-size:24px}.two-col{grid-template-columns:1fr}.section-head h2{font-size:18px}.week-chart{height:155px}.category-row{grid-template-columns:75px 1fr 30px;gap:8px}}
+</style></head>
+<body>
+<header><a class="brand" href="app.html"><span class="brand-img">img</span><b>Biblioteca<br>Digital</b></a><nav class="nav"><a href="app.html">Início /<br>Catálogo</a><a href="profile.html">Meus<br>Favoritos</a><a href="relatorios.html">Metas &amp;<br>Progresso</a><a href="reader.html">Leitor<br>Digital</a></nav><div class="tools"><button id="theme" aria-label="Alternar contraste">◐</button><a class="avatar" href="profile.html">MF</a></div></header>
+<main>
+<a class="back" href="app.html">← Voltar ao catálogo</a>
+<div class="intro"><p class="eyebrow">ACOMPANHAMENTO PESSOAL</p><h1>Relatórios de Leitura</h1><p>Acompanhe seus hábitos, suas metas e sua evolução como leitor.</p></div>
+<div class="grid">
+<section class="panel metric"><small>Livros lidos</small><strong>14</strong><span>↗ Obras concluídas</span></section>
+<section class="panel metric"><small>Livros lidos hoje</small><strong>1</strong><span>◷ Em foco hoje</span></section>
+<section class="panel metric"><small>Tempo de leitura hoje</small><strong>35 min</strong><span>De 45 min planejados</span></section>
+<section class="panel metric"><small>Sequência atual</small><strong>5 dias</strong><span>Continue nesse ritmo!</span></section>
+</div>
+<section class="section"><div class="section-head"><h2>Status de Leitura</h2><p>Resumo geral da sua atividade</p></div><div class="grid">
+<div class="panel metric"><small>Livros concluídos</small><strong>14</strong><span>Finalizados</span></div>
+<div class="panel metric"><small>Leituras em andamento</small><strong>3</strong><span>Você pode continuar de onde parou</span></div>
+<div class="panel metric"><small>Meta diária</small><strong>78%</strong><span>35 de 45 minutos lidos</span></div>
+<div class="panel metric"><small>Média semanal</small><strong>38 pág.</strong><span>Páginas por dia nesta semana</span></div>
+</div></section>
+<section class="section"><div class="section-head"><h2>Meta Diária</h2><p>Objetivo: 45 minutos por dia</p></div><div class="two-col">
+<div class="panel"><h3 class="panel-title">Progresso de hoje</h3><div class="daily-top"><span>Tempo de leitura realizado</span><strong>35 / 45 min</strong></div><div class="track"><span style="width:78%"></span></div><div class="daily-foot"><span>35 minutos lidos</span><b>Faltam 10 minutos</b></div></div>
+<div class="panel goal"><div class="circle">78%</div><h3 class="panel-title" style="margin-bottom:5px">Quase lá!</h3><p>Você já completou a maior parte da sua meta diária.</p></div>
+</div></section>
+<section class="section"><div class="section-head"><h2>Ritmo Semanal de Leitura</h2><p>Média de 38 páginas por dia nesta semana</p></div><div class="panel"><h3 class="panel-title">Páginas lidas por dia</h3><div class="week-chart">
+<div class="day-col"><div class="bar" style="height:65%"></div><small>Seg</small></div><div class="day-col"><div class="bar" style="height:82%"></div><small>Ter</small></div><div class="day-col"><div class="bar" style="height:55%"></div><small>Qua</small></div><div class="day-col"><div class="bar" style="height:90%"></div><small>Qui</small></div><div class="day-col today"><div class="bar" style="height:92%"></div><small>Hoje</small></div><div class="day-col"><div class="bar" style="height:7%"></div><small>Sáb</small></div><div class="day-col"><div class="bar" style="height:5%"></div><small>Dom</small></div>
+</div><div class="chart-legend">Sua frequência de leitura ao longo dos últimos sete dias.</div></div></section>
+<section class="section"><div class="two-col">
+<div class="panel"><h3 class="panel-title">Categorias mais lidas</h3><div class="category-list">
+<div class="category-row"><span>Literatura</span><div class="category-track"><span style="width:85%"></span></div><strong>85%</strong></div>
+<div class="category-row"><span>Tecnologia</span><div class="category-track"><span style="width:68%"></span></div><strong>68%</strong></div>
+<div class="category-row"><span>Ciências</span><div class="category-track"><span style="width:48%"></span></div><strong>48%</strong></div>
+<div class="category-row"><span>História</span><div class="category-track"><span style="width:32%"></span></div><strong>32%</strong></div>
+</div></div>
+<div class="insight"><small>DESTAQUE DA SUA JORNADA</small><h3>Constância vale mais do que velocidade.</h3><p>Você está mantendo uma sequência de cinco dias de leitura. Pequenos momentos diários ajudam a construir um hábito duradouro.</p></div>
+</div></section>
+</main>
+<script>document.getElementById('theme').addEventListener('click',()=>document.body.classList.toggle('dark'));</script>
+</body></html>

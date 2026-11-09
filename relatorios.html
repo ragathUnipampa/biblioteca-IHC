@@ -24,6 +24,34 @@ header.scroll-aware,.topbar.scroll-aware{transition:transform .24s ease;will-cha
 header .nav,.topbar .nav{flex:0 0 auto;justify-content:center;gap:clamp(24px,4.2vw,64px);margin-left:auto;margin-right:auto}
 @media(max-width:900px){header .nav,.topbar .nav{order:3;flex-basis:100%;justify-content:center;gap:clamp(22px,7vw,48px);margin:0 auto}}
 @media(max-width:620px){header .nav,.topbar .nav{justify-content:center;gap:22px;overflow:visible;padding:5px 0}}
+
+/* Tema escuro global: aplica-se a todas as áreas, não apenas ao cabeçalho/início */
+body.dark{--bg:#101a28;--panel:#1b293a;--soft:#243448;background:#101a28!important;color:#e5edf8!important;color-scheme:dark}
+body.dark main{color:#e5edf8}
+body.dark header,body.dark .topbar{background:#172436f2!important;border-color:#304158!important;color:#e5edf8}
+body.dark footer{background:#172436!important;color:#b8c5d5!important;border-color:#304158}
+body.dark footer a,body.dark .nav a,body.dark .back,body.dark .back-home,body.dark .section-title a{color:#c7d7e8}
+body.dark .hero,body.dark .intro,body.dark .welcome-row{color:#e5edf8}
+body.dark .hero{background:linear-gradient(110deg,#1b293a 0%,#1b293a 68%,#203d3a 100%)!important}
+body.dark .hero h1,body.dark .hero p,body.dark .intro h1,body.dark .intro p,body.dark .welcome-row h1,body.dark .section-title h2,body.dark .section-heading h2,body.dark .panel-title,body.dark .panel h2,body.dark .status-head h2,body.dark .goal h3,body.dark .book-title,body.dark .book h3,body.dark .mini h3,body.dark .metric strong,body.dark .streak strong,body.dark .score{color:#e5edf8!important}
+body.dark .daily,body.dark .searchbar,body.dark .book,body.dark .mini,body.dark .panel,body.dark .status-card,body.dark .book-card,body.dark .goal,body.dark .weekly,body.dark .stat,body.dark .resource,body.dark .challenge-card,body.dark .goal-card,body.dark .summary,body.dark .review,body.dark .columns>.panel,body.dark .sidebar,body.dark .pagination,body.dark .tabs,body.dark .audio-panel,body.dark .goal-stats div,body.dark .timer,body.dark .chapter,body.dark .notes-panel,body.dark .search,body.dark .search input,body.dark .profile-name-dialog{background:#1b293a!important;border-color:#34465d!important;color:#e5edf8}
+body.dark .stat,body.dark .weekly,body.dark .resource,body.dark .challenge-card,body.dark .goal-card,body.dark .goal,body.dark .audio-panel,body.dark .tabs,body.dark .chapter,body.dark .goal-stats div{background:#243448!important}
+body.dark p,body.dark small,body.dark label,body.dark .author,body.dark .daily-top,body.dark .daily-bottom,body.dark .mini p,body.dark .mini small,body.dark .resources p,body.dark .metric small,body.dark .metric span,body.dark .intro p,body.dark .section-head p,body.dark .summary-detail p,body.dark .review p,body.dark .review-date,body.dark .count,body.dark .field label,body.dark .notice,body.dark .empty,body.dark .empty-favorites,body.dark .page-count,body.dark .audio-status,body.dark .audio-time,body.dark .goal-line,body.dark .goal-stats div{color:#bdc9d8!important}
+body.dark input,body.dark textarea,body.dark select,body.dark .searchbar input,body.dark .field input,body.dark .field textarea,body.dark .notes-panel textarea{background:#111e2d!important;color:#edf3fa!important;border-color:#40536c!important}
+body.dark input::placeholder,body.dark textarea::placeholder{color:#91a0b3}
+body.dark .filter,body.dark .report,body.dark .control-group,body.dark .fonttools,body.dark .searchbar{background:#243448!important;color:#dce7f3!important;border-color:#40536c!important}
+body.dark .stat b,body.dark .resource b,body.dark .weekly-head,body.dark .weekly-head b,body.dark .daily-top b,body.dark .daily-bottom strong,body.dark .goal-top b,body.dark .goal-line strong,body.dark .category-row strong,body.dark .page-meta strong,body.dark .page-foot strong{color:#b9d7f5!important}
+body.dark .track,body.dark .category-track,body.dark .progress,body.dark .mini-progress,body.dark .daily-bar{background:#3a4b60}
+body.dark .pagination button,body.dark .chapter,body.dark .chapter b,body.dark .page-meta,body.dark .page-foot{color:#dce7f3}
+body.dark .chapter.active{background:#31547a!important;color:white!important}
+body.dark .quote,body.dark .insight{background:#08294d!important;color:white!important}
+body.dark .quote blockquote,body.dark .quote cite,body.dark .quote small,body.dark .insight p,body.dark .insight h3{color:#e5edf8}
+body.dark .profile-name-dialog h2{color:#e5edf8!important}
+body.dark .avatar{border-color:#34465d}
+body.dark .review{border-color:#34465d}
+body.dark .paper{background:var(--paper,#20252d)!important;color:var(--ink,#eceff4)!important;border-color:#414852}
+body.dark .page+.page{border-color:#414852!important}
+
 </style></head>
 <body>
 <header><a class="brand" href="app.html"><span class="brand-img">img</span><b>Biblioteca<br>Digital</b></a><nav class="nav"><a href="app.html">Início</a><a href="profile.html#favoritos">Favoritos</a><a href="relatorios.html">Relatório</a></nav><div class="tools"><button id="theme" aria-label="Alternar contraste">◐</button><button type="button" class="avatar" title="Meu perfil" aria-label="Abrir menu do perfil">MF</button></div></header>
@@ -59,7 +87,7 @@ header .nav,.topbar .nav{flex:0 0 auto;justify-content:center;gap:clamp(24px,4.2
 <div class="insight"><small>DESTAQUE DA SUA JORNADA</small><h3>Constância vale mais do que velocidade.</h3><p>Você está mantendo uma sequência de cinco dias de leitura. Pequenos momentos diários ajudam a construir um hábito duradouro.</p></div>
 </div></section>
 </main>
-<script>document.getElementById('theme').addEventListener('click',()=>document.body.classList.toggle('dark'));
+<script>
 (()=>{const header=document.querySelector('header, .topbar');if(!header)return;let lastY=window.scrollY;let ticking=false;header.classList.add('scroll-aware');window.addEventListener('scroll',()=>{if(ticking)return;ticking=true;window.requestAnimationFrame(()=>{const y=window.scrollY;const delta=y-lastY;if(y<70)header.classList.remove('header-hidden');else if(delta>6)header.classList.add('header-hidden');else if(delta< -6)header.classList.remove('header-hidden');lastY=y;ticking=false})},{passive:true})})();
 </script>
 
@@ -106,6 +134,16 @@ header .nav,.topbar .nav{flex:0 0 auto;justify-content:center;gap:clamp(24px,4.2
   });
   document.addEventListener('click',event=>{if(!tools.contains(event.target))menu.hidden=true;});
   document.addEventListener('keydown',event=>{if(event.key==='Escape')menu.hidden=true;});
+})();
+</script>
+
+<script>
+(()=> {
+ const KEY='biblioteca-tema-escuro-v1';
+ const isReader=document.body.classList.contains('reader-page')||!!document.querySelector('.paper');
+ const apply=dark=>{document.body.classList.toggle('dark',dark);if(isReader)document.body.classList.toggle('dark-reader',dark);document.querySelectorAll('#theme').forEach(b=>{b.setAttribute('aria-pressed',String(dark));b.title=dark?'Desativar contraste':'Ativar contraste';});};
+ let dark=localStorage.getItem(KEY)==='1';apply(dark);
+ document.querySelectorAll('#theme').forEach(button=>button.addEventListener('click',()=>{dark=!dark;try{localStorage.setItem(KEY,dark?'1':'0')}catch(e){}apply(dark);}));
 })();
 </script>
 </body></html>

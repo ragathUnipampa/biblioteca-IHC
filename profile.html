@@ -27,6 +27,11 @@ body.dark{--bg:#101a28;--panel:#1b293a;--ink:#e8edf5;color:#e8edf5}body.dark .to
 @media(max-width:1150px){main{padding:28px 5.5%}.topbar{padding:0 5.5%;gap:20px}.brand{min-width:235px}.brand-placeholder{width:110px}.layout{gap:22px}.cover-wrap{height:250px}}
 @media(max-width:950px){.topbar{height:auto;min-height:76px;flex-wrap:wrap;padding:14px 5%;gap:12px}.brand{min-width:0;flex:1}.nav{order:3;flex-basis:100%;justify-content:space-between}.tools{gap:12px}.layout{grid-template-columns:1fr}.right-col{display:grid;grid-template-columns:1fr 1fr}.cover-wrap{height:300px}}
 @media(max-width:620px){main{padding:25px 16px}.topbar{padding:12px 16px}.brand-placeholder{width:72px;height:28px}.brand strong{font-size:15px}.nav{gap:14px;overflow-x:auto;justify-content:flex-start;padding:5px 0}.nav a{font-size:12px}.tools{gap:7px}.tools .tiny-pill{display:none}.font-tools{padding:6px}.welcome-row{align-items:flex-start;flex-direction:column;margin-bottom:25px}.welcome-row h1{font-size:27px}.search{width:100%}.layout{gap:25px}.section-heading{align-items:flex-start}.section-heading h2{font-size:17px}.books{grid-template-columns:1fr;gap:16px}.book-card{display:grid;grid-template-columns:116px 1fr;grid-template-rows:auto auto auto auto auto;column-gap:14px;padding:12px}.cover-wrap{grid-row:1/6;height:176px}.book-title{margin:4px 0 2px;font-size:16px}.author,.page-count,.progress-label,.bar,.continue{grid-column:2}.progress-label{margin:8px 0 4px}.continue{margin-top:10px;height:36px}.right-col{grid-template-columns:1fr}.weekly{padding:20px 14px}.weekly h3{font-size:16px}.weekly p{font-size:12px}.chart{height:125px}.column{width:26px}.status-card{padding:20px 16px}.quote{min-height:unset}}
+
+header.scroll-aware,.topbar.scroll-aware{transition:transform .24s ease;will-change:transform}header.header-hidden,.topbar.header-hidden{transform:translateY(-110%)}
+header .nav,.topbar .nav{flex:0 0 auto;justify-content:center;gap:clamp(24px,4.2vw,64px);margin-left:auto;margin-right:auto}
+@media(max-width:900px){header .nav,.topbar .nav{order:3;flex-basis:100%;justify-content:center;gap:clamp(22px,7vw,48px);margin:0 auto}}
+@media(max-width:620px){header .nav,.topbar .nav{justify-content:center;gap:22px;overflow:visible;padding:5px 0}}
 </style>
 </head>
 <body>
@@ -99,5 +104,7 @@ document.getElementById('search').addEventListener('input',e=>{const q=e.target.
 let minutes=35;document.getElementById('add-time').addEventListener('click',()=>{minutes+=10;const pct=Math.min(100,Math.round(minutes/45*100));document.getElementById('ring').textContent=pct+'%';document.getElementById('goal-bar').style.width=pct+'%';document.getElementById('goal-text').textContent=minutes+' de 45 minutos lidos';notify('Mais 10 minutos adicionados à sua meta!')});
 document.getElementById('theme').addEventListener('click',()=>document.body.classList.toggle('dark'));
 
+
+(()=>{const header=document.querySelector('header, .topbar');if(!header)return;let lastY=window.scrollY;let ticking=false;header.classList.add('scroll-aware');window.addEventListener('scroll',()=>{if(ticking)return;ticking=true;window.requestAnimationFrame(()=>{const y=window.scrollY;const delta=y-lastY;if(y<70)header.classList.remove('header-hidden');else if(delta>6)header.classList.add('header-hidden');else if(delta< -6)header.classList.remove('header-hidden');lastY=y;ticking=false})},{passive:true})})();
 </script>
 </body></html>

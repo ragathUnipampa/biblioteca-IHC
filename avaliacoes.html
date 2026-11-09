@@ -43,10 +43,14 @@ body.dark .review{border-color:#34465d}
 body.dark .paper{background:var(--paper,#20252d)!important;color:var(--ink,#eceff4)!important;border-color:#414852}
 body.dark .page+.page{border-color:#414852!important}
 
+
+/* Logo personalizado no cabeçalho */
+.brand-logo{width:48px;height:48px;object-fit:contain;display:block;flex:0 0 48px;background:transparent}
+@media(max-width:600px){.brand-logo{width:42px;height:42px;flex-basis:42px}}
 </style>
 </head>
 <body>
-<header><a class="brand" href="app.html"><span class="brand-mark">▤</span><b>Biblioteca<br>Digital</b></a><nav class="nav"><a href="app.html">Início</a><a href="acervo.html">Acervo completo</a><a href="profile.html#favoritos">Favoritos</a></nav><div class="tools"><button type="button" id="theme" aria-label="Alternar contraste">◐</button><button type="button" class="avatar" title="Meu perfil" aria-label="Abrir menu do perfil">MF</button></div></header>
+<header><a class="brand" href="app.html"><img class="brand-logo" src="logo-biblioteca.svg" alt="Logo da Biblioteca Digital"><b>Biblioteca<br>Digital</b></a><nav class="nav"><a href="app.html">Início</a><a href="acervo.html">Acervo completo</a><a href="profile.html#favoritos">Favoritos</a></nav><div class="tools"><button type="button" id="theme" aria-label="Alternar contraste">◐</button><button type="button" class="avatar" title="Meu perfil" aria-label="Abrir menu do perfil">MF</button></div></header>
 <main>
 <a class="back" href="acervo.html">← Voltar ao acervo</a>
 <section class="intro"><p class="eyebrow">OPINIÕES DA COMUNIDADE</p><h1 id="book-title">Avaliações do livro</h1><p id="book-subtitle">Veja o que leitores acharam desta obra e compartilhe sua experiência.</p></section>

@@ -62,11 +62,15 @@ body.dark .review{border-color:#34465d}
 body.dark .paper{background:var(--paper,#20252d)!important;color:var(--ink,#eceff4)!important;border-color:#414852}
 body.dark .page+.page{border-color:#414852!important}
 
+
+/* Logo personalizado no cabeçalho */
+.brand-logo{width:48px;height:48px;object-fit:contain;display:block;flex:0 0 48px;background:transparent}
+@media(max-width:600px){.brand-logo{width:42px;height:42px;flex-basis:42px}}
 </style>
 </head>
 <body>
 <header>
-<a class="brand" href="app.html"><span class="brand-img">img</span><b>Biblioteca<br>Digital</b></a>
+<a class="brand" href="app.html"><img class="brand-logo" src="logo-biblioteca.svg" alt="Logo da Biblioteca Digital"><b>Biblioteca<br>Digital</b></a>
 <nav class="nav"><a href="app.html">Início</a><a href="profile.html#favoritos">Favoritos</a><a href="relatorios.html">Relatório</a></nav>
 <div class="tools"><button id="theme" aria-label="Alternar contraste">◐</button><button type="button" class="avatar" title="Meu perfil" aria-label="Abrir menu do perfil">MF</button></div>
 </header>

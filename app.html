@@ -27,6 +27,13 @@ header.scroll-aware,.topbar.scroll-aware{transition:transform .24s ease;will-cha
 header .nav,.topbar .nav{flex:0 0 auto;justify-content:center;gap:clamp(24px,4.2vw,64px);margin-left:auto;margin-right:auto}
 @media(max-width:900px){header .nav,.topbar .nav{order:3;flex-basis:100%;justify-content:center;gap:clamp(22px,7vw,48px);margin:0 auto}}
 @media(max-width:620px){header .nav,.topbar .nav{justify-content:center;gap:22px;overflow:visible;padding:5px 0}}
+
+/* Desafios e metas de leitura */
+.reading-section{margin-top:34px}.reading-section .section-title{margin-bottom:14px}.challenge-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.challenge-card,.goal-card{background:#fff;border:1px solid #eef0f4;border-radius:13px;padding:17px;box-shadow:0 2px 4px #102a4505;min-width:0}.challenge-card{display:flex;flex-direction:column;gap:9px}.challenge-top{display:flex;justify-content:space-between;align-items:center}.challenge-icon{width:37px;height:37px;border-radius:10px;background:#e8f4ef;color:var(--green);display:grid;place-items:center;font-size:20px}.challenge-card h3,.goal-card h3{font-size:14px;color:var(--navy);margin:0}.challenge-card p,.goal-card p{font-size:11px;line-height:1.5;color:#68717d;margin:0}.challenge-progress{height:7px;background:#e9edf0;border-radius:8px;overflow:hidden}.challenge-progress span,.goal-progress span{height:100%;display:block;background:var(--green);border-radius:8px;transition:width .2s}.challenge-meta{display:flex;justify-content:space-between;font-size:10px;color:#68717d;font-weight:700}.small-action{border:0;border-radius:7px;background:var(--navy);color:white;padding:8px 10px;font-size:10px;font-weight:800;align-self:flex-start}.small-action:disabled{background:#d9eee5;color:#187454;cursor:default}.category-picks{display:flex;flex-wrap:wrap;gap:5px}.category-pick{border:1px solid #dce3e8;background:#f5f7f9;border-radius:15px;padding:5px 8px;font-size:9px;color:#34465b;font-weight:700}.category-pick.selected{background:#e2f4eb;border-color:#9ad7ba;color:#176b4d}.badge-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:15px}.achievement{display:flex;align-items:center;gap:7px;background:#f0f2f6;border-radius:20px;padding:7px 10px;font-size:10px;font-weight:700;color:#66717d}.achievement.unlocked{background:#e5f5ed;color:#176b4d}.achievement span{font-size:15px}.goal-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.goal-card{display:flex;flex-direction:column;gap:9px}.goal-value{font:700 23px "Libre Baskerville",Georgia,serif;color:var(--navy)}.goal-value small{font:600 10px "DM Sans",Arial;color:#66717d}.goal-progress{height:7px;background:#e9edf0;border-radius:8px;overflow:hidden}.goal-edit{display:flex;gap:6px;align-items:center;margin-top:auto}.goal-edit input{width:68px;min-width:0;border:1px solid #dfe4e9;border-radius:6px;padding:6px;font-size:10px;color:#263142}.goal-edit button{border:0;border-radius:6px;background:#eef2f5;color:var(--navy);padding:7px 8px;font-size:9px;font-weight:800}.goal-chart{margin-top:14px;background:#f0f2f6;border-radius:10px;padding:14px}.goal-chart-head{display:flex;justify-content:space-between;gap:10px;font-size:11px;font-weight:800;color:#34465b}.goal-chart-bars{height:92px;display:flex;align-items:end;justify-content:space-around;gap:12px;margin-top:10px}.goal-chart-bars div{flex:1;max-width:55px;background:#197454;border-radius:5px 5px 0 0;min-height:5px;position:relative}.goal-chart-bars div span{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:9px;color:#68717d}.goal-chart{padding-bottom:30px}
+body.dark .challenge-card,body.dark .goal-card{background:#1b293a;border-color:#29394d}body.dark .challenge-card h3,body.dark .goal-card h3,body.dark .goal-value{color:#e5edf8}body.dark .goal-chart,body.dark .achievement{background:#243448}body.dark .goal-edit input{background:#1b293a;color:#e5edf8;border-color:#40516a}
+@media(max-width:900px){.challenge-grid{grid-template-columns:1fr 1fr}.goal-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.challenge-grid,.goal-grid{grid-template-columns:1fr}.reading-section{margin-top:27px}.challenge-card,.goal-card{padding:14px}}
+
 </style>
 </head>
 <body>
@@ -54,6 +61,47 @@ header .nav,.topbar .nav{flex:0 0 auto;justify-content:center;gap:clamp(24px,4.2
 <article class="mini"><img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?w=160&h=240&fit=crop" alt="Introdução à ciência"><div style="min-width:0;flex:1"><span class="kind">CIÊNCIAS</span><h3>Introdução à Ciência</h3><p>Renata A. Silveira</p><small>Capítulo 08</small><div class="mini-progress"><span style="width:88%"></span></div></div></article>
 <article class="mini"><img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=160&h=240&fit=crop" alt="Livro de história"><div style="min-width:0;flex:1"><span class="kind">HISTÓRIA</span><h3>Brasil: República</h3><p>Eduardo Prado</p><small>Capítulo 03</small><div class="mini-progress"><span style="width:25%"></span></div></div></article>
 </div></section>
+
+<section class="reading-section" id="desafios">
+  <div class="section-title"><div><p class="eyebrow">SUPERE SEUS LIMITES</p><h2>Desafios de Leitura</h2></div></div>
+  <div class="challenge-grid">
+    <article class="challenge-card" data-challenge="books">
+      <div class="challenge-top"><span class="challenge-icon">📚</span><span class="active">Mensal</span></div>
+      <h3>Maratona dos 5 livros</h3><p>Conclua cinco livros neste mês e amplie seus horizontes de leitura.</p>
+      <div class="challenge-progress"><span id="challengeBooksBar" style="width:0%"></span></div>
+      <div class="challenge-meta"><span id="challengeBooksCount">0 de 5 livros</span><span id="challengeBooksPct">0%</span></div>
+      <button class="small-action" id="addReadBook">Registrar livro concluído +1</button>
+    </article>
+    <article class="challenge-card" data-challenge="categories">
+      <div class="challenge-top"><span class="challenge-icon">🧭</span><span class="active">Exploração</span></div>
+      <h3>Explore novas categorias</h3><p>Conheça pelo menos quatro áreas diferentes do conhecimento.</p>
+      <div class="category-picks" id="challengeCategories">
+        <button class="category-pick" data-category="Literatura">Literatura</button><button class="category-pick" data-category="Matemática">Matemática</button><button class="category-pick" data-category="Ciências">Ciências</button><button class="category-pick" data-category="História">História</button><button class="category-pick" data-category="Tecnologia">Tecnologia</button><button class="category-pick" data-category="Português">Português</button>
+      </div>
+      <div class="challenge-progress"><span id="challengeCategoriesBar" style="width:0%"></span></div>
+      <div class="challenge-meta"><span id="challengeCategoriesCount">0 de 4 categorias</span><span id="challengeCategoriesPct">0%</span></div>
+    </article>
+    <article class="challenge-card">
+      <div class="challenge-top"><span class="challenge-icon">🏅</span><span class="active">Conquistas</span></div>
+      <h3>Medalhas e distintivos</h3><p>Suas conquistas são desbloqueadas conforme você conclui desafios.</p>
+      <div class="badge-row" id="challengeBadges"><span class="achievement" id="badgeFirst"><span>🌱</span>Primeiro passo</span><span class="achievement" id="badgeExplorer"><span>🧭</span>Explorador</span><span class="achievement" id="badgeMarathon"><span>🏆</span>Maratonista</span></div>
+      <div class="challenge-meta"><span id="challengeDone">0 desafios concluídos</span><span>Continue!</span></div>
+    </article>
+  </div>
+</section>
+<section class="reading-section" id="metas">
+  <div class="section-title"><div><p class="eyebrow">PLANEJE SUA JORNADA</p><h2>Metas de Leitura</h2></div><span class="filter-label">Acompanhe e atualize seu progresso</span></div>
+  <div class="goal-grid">
+    <article class="goal-card" data-goal="daily"><h3>Meta diária</h3><div class="goal-value"><span id="dailyCurrent">0</span><small> / <span id="dailyTarget">30</span> min</small></div><div class="goal-progress"><span id="dailyBar" style="width:0%"></span></div><p>Tempo de leitura por dia</p><div class="goal-edit"><input id="dailyInput" type="number" min="1" max="1440" value="30" aria-label="Meta diária em minutos"><button data-save-goal="daily">Definir</button></div></article>
+    <article class="goal-card" data-goal="weekly"><h3>Meta semanal</h3><div class="goal-value"><span id="weeklyCurrent">0</span><small> / <span id="weeklyTarget">5</span> dias</small></div><div class="goal-progress"><span id="weeklyBar" style="width:0%"></span></div><p>Quantidade de dias com leitura</p><div class="goal-edit"><input id="weeklyInput" type="number" min="1" max="7" value="5" aria-label="Meta semanal em dias"><button data-save-goal="weekly">Definir</button></div></article>
+    <article class="goal-card" data-goal="monthly"><h3>Meta mensal</h3><div class="goal-value"><span id="monthlyCurrent">0</span><small> / <span id="monthlyTarget">2</span> livros</small></div><div class="goal-progress"><span id="monthlyBar" style="width:0%"></span></div><p>Livros concluídos no mês</p><div class="goal-edit"><input id="monthlyInput" type="number" min="1" max="100" value="2" aria-label="Meta mensal em livros"><button data-save-goal="monthly">Definir</button></div></article>
+    <article class="goal-card" data-goal="yearly"><h3>Meta anual</h3><div class="goal-value"><span id="yearlyCurrent">0</span><small> / <span id="yearlyTarget">24</span> livros</small></div><div class="goal-progress"><span id="yearlyBar" style="width:0%"></span></div><p>Livros que deseja ler no ano</p><div class="goal-edit"><input id="yearlyInput" type="number" min="1" max="500" value="24" aria-label="Meta anual em livros"><button data-save-goal="yearly">Definir</button></div></article>
+  </div>
+  <div class="goal-chart"><div class="goal-chart-head"><span>Progresso semanal de leitura</span><span id="weeklySummary">0 minutos registrados</span></div><div class="goal-chart-bars" id="goalChart"><div style="height:15%"><span>Seg</span></div><div style="height:30%"><span>Ter</span></div><div style="height:22%"><span>Qua</span></div><div style="height:55%"><span>Qui</span></div><div style="height:40%"><span>Sex</span></div><div style="height:10%"><span>Sáb</span></div><div style="height:5%"><span>Dom</span></div></div></div>
+  <div class="goal-edit" style="margin-top:12px"><input id="readingMinutesInput" type="number" min="1" max="1440" placeholder="Minutos lidos" aria-label="Minutos lidos hoje"><button class="small-action" id="registerReading">Registrar leitura de hoje</button></div>
+  <p class="filter-label" style="margin-top:8px">Os dados e suas metas ficam salvos neste navegador.</p>
+</section>
+
 </div>
 <div class="dashboard-row">
 <section class="panel status-below-books"><div class="panel-head"><h2>✣ Status de Leitura</h2><span class="active">Ativa</span></div><div class="stats"><div class="stat"><small>Livros Lidos</small><b>12</b><span>⌁ +3 este mês</span></div><div class="stat"><small>Livros do Dia</small><b>2 <small>lidos</small></b><span>◷ 45 min totais</span></div></div><div class="weekly"><div class="weekly-head"><span>Frequência Semanal</span><b>5 dias seguidos</b></div><div class="bars"><div style="height:52px"></div><div style="height:43px"></div><div style="height:27px"></div><div style="height:61px"></div><div style="height:53px"></div><div style="height:10px"></div><div style="height:8px"></div></div><div class="days"><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span></div></div><button class="report" onclick="location.href='relatorios.html'">Ver Relatório Completo</button></section>
@@ -75,6 +123,32 @@ document.querySelectorAll('.filter').forEach(btn=>btn.addEventListener('click',(
 const favoritesKey='biblioteca-favoritos';function readFavorites(){try{return JSON.parse(localStorage.getItem(favoritesKey)||'[]')}catch(e){return []}}function paintHeart(btn){const saved=readFavorites().includes(btn.dataset.book);btn.classList.toggle('saved',saved);btn.textContent=saved?'♥':'♡';btn.setAttribute('aria-label',saved?'Remover dos favoritos':'Adicionar aos favoritos')}function renderSavedBooks(){const container=document.querySelector('.mini-books');const known=[...container.querySelectorAll('.mini h3')].map(x=>x.textContent);container.querySelectorAll('[data-added-favorite="true"]').forEach(x=>x.remove());readFavorites().forEach(title=>{if(known.includes(title))return;const item=document.createElement('article');item.className='mini';item.dataset.addedFavorite='true';item.innerHTML='<img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=160&h=240&fit=crop" alt="Capa ilustrativa"><div style="min-width:0;flex:1"><span class="kind">LIVRO FAVORITADO</span><h3></h3><p>Adicionado à sua estante</p><small>Disponível para continuar</small></div>';item.querySelector('h3').textContent=title;container.appendChild(item)})}document.querySelectorAll('.heart').forEach(btn=>{paintHeart(btn);btn.addEventListener('click',()=>{let saved=readFavorites();if(saved.includes(btn.dataset.book))saved=saved.filter(x=>x!==btn.dataset.book);else saved.push(btn.dataset.book);try{localStorage.setItem(favoritesKey,JSON.stringify(saved));document.querySelectorAll('.heart').forEach(paintHeart);renderSavedBooks();notify(saved.includes(btn.dataset.book)?'Livro adicionado aos favoritos':'Livro removido dos favoritos')}catch(e){notify('Não foi possível atualizar os favoritos.')}})});renderSavedBooks();
 document.querySelectorAll('.read').forEach(btn=>btn.addEventListener('click',()=>location.href='reader.html?book='+encodeURIComponent(btn.dataset.title)));
 document.getElementById('theme').addEventListener('click',()=>document.body.classList.toggle('dark'));
+
+/* Desafios e metas: persistência local no navegador */
+(()=>{
+ const KEY='biblioteca-desafios-metas-v1';
+ const defaults={books:0,categories:[],goals:{daily:30,weekly:5,monthly:2,yearly:24},progress:{daily:0,weekly:0,monthly:0,yearly:0},minutes:[0,0,0,0,0,0,0]};
+ let data;try{data={...defaults,...JSON.parse(localStorage.getItem(KEY)||'{}')};data.goals={...defaults.goals,...(data.goals||{})};data.progress={...defaults.progress,...(data.progress||{})};data.minutes=Array.isArray(data.minutes)?data.minutes:defaults.minutes;data.categories=Array.isArray(data.categories)?data.categories:[]}catch(e){data=JSON.parse(JSON.stringify(defaults))}
+ const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(data))}catch(e){notify('Não foi possível salvar os dados neste navegador.')}};
+ const pct=(n,t)=>Math.min(100,Math.round((Number(n)||0)/Math.max(1,Number(t)||1)*100));
+ function render(){
+  const bookPct=pct(data.books,5);document.getElementById('challengeBooksBar').style.width=bookPct+'%';document.getElementById('challengeBooksCount').textContent=Math.min(data.books,5)+' de 5 livros';document.getElementById('challengeBooksPct').textContent=bookPct+'%';
+  const cats=data.categories.length,catPct=pct(cats,4);document.getElementById('challengeCategoriesBar').style.width=catPct+'%';document.getElementById('challengeCategoriesCount').textContent=Math.min(cats,4)+' de 4 categorias';document.getElementById('challengeCategoriesPct').textContent=catPct+'%';
+  document.querySelectorAll('.category-pick').forEach(b=>b.classList.toggle('selected',data.categories.includes(b.dataset.category)));
+  document.getElementById('badgeFirst').classList.toggle('unlocked',data.books>0||cats>0);document.getElementById('badgeExplorer').classList.toggle('unlocked',cats>=4);document.getElementById('badgeMarathon').classList.toggle('unlocked',data.books>=5);
+  const done=(data.books>=5?1:0)+(cats>=4?1:0);document.getElementById('challengeDone').textContent=done+' de 2 desafios concluídos';
+  ['daily','weekly','monthly','yearly'].forEach(k=>{document.getElementById(k+'Current').textContent=data.progress[k];document.getElementById(k+'Target').textContent=data.goals[k];document.getElementById(k+'Bar').style.width=pct(data.progress[k],data.goals[k])+'%';document.getElementById(k+'Input').value=data.goals[k]});
+  const total=data.minutes.reduce((a,b)=>a+(Number(b)||0),0);document.getElementById('weeklySummary').textContent=total+' minutos registrados';
+  const max=Math.max(30,...data.minutes);document.getElementById('goalChart').innerHTML=data.minutes.map((v,i)=>'<div style="height:'+Math.max(5,Math.round(v/max*100))+'%"><span>'+['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'][i]+'</span></div>').join('');
+  document.getElementById('addReadBook').disabled=data.books>=5;document.getElementById('addReadBook').textContent=data.books>=5?'Desafio concluído ✓':'Registrar livro concluído +1';
+ }
+ document.getElementById('addReadBook').addEventListener('click',()=>{data.books=Math.min(5,data.books+1);data.progress.monthly=Math.min(100,data.progress.monthly+1);data.progress.yearly=Math.min(500,data.progress.yearly+1);save();render();notify(data.books>=5?'Parabéns! Você concluiu a Maratona dos 5 livros!':'Livro registrado no desafio!')});
+ document.querySelectorAll('.category-pick').forEach(b=>b.addEventListener('click',()=>{const v=b.dataset.category;data.categories=data.categories.includes(v)?data.categories.filter(x=>x!==v):[...data.categories,v];save();render()}));
+ document.querySelectorAll('[data-save-goal]').forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.saveGoal;const v=Number(document.getElementById(k+'Input').value);if(!Number.isFinite(v)||v<1){notify('Informe uma meta válida.');return}data.goals[k]=v;save();render();notify('Meta atualizada!')}));
+ document.getElementById('registerReading').addEventListener('click',()=>{const input=document.getElementById('readingMinutesInput');const v=Number(input.value);if(!Number.isFinite(v)||v<1){notify('Informe quantos minutos você leu.');return}const day=(new Date().getDay()+6)%7;data.minutes[day]=(Number(data.minutes[day])||0)+v;data.progress.daily=Math.min(1440,data.progress.daily+v);if(data.progress.weekly<7)data.progress.weekly=Math.min(7,data.progress.weekly+1);save();render();input.value='';notify('Tempo de leitura registrado!')});
+ render();
+})();
+
 
 (()=>{const header=document.querySelector('header, .topbar');if(!header)return;let lastY=window.scrollY;let ticking=false;header.classList.add('scroll-aware');window.addEventListener('scroll',()=>{if(ticking)return;ticking=true;window.requestAnimationFrame(()=>{const y=window.scrollY;const delta=y-lastY;if(y<70)header.classList.remove('header-hidden');else if(delta>6)header.classList.add('header-hidden');else if(delta< -6)header.classList.remove('header-hidden');lastY=y;ticking=false})},{passive:true})})();
 </script>

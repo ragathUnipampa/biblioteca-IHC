@@ -33,7 +33,7 @@ body.dark{--bg:#101a28;--panel:#1b293a;--ink:#e8edf5;color:#e8edf5}body.dark .to
 <header class="topbar">
   <a class="brand" href="app.html"><span class="brand-placeholder">img</span><strong>Biblioteca<br>Digital</strong></a>
   <nav class="nav" aria-label="Navegação principal"><a href="#catalogo">Início /<br>Catálogo</a><a href="#favoritos">Meus<br>Favoritos</a><a href="#metas">Metas &amp;<br>Progresso</a><a href="reader.html">Leitor<br>Digital</a></nav>
-  <div class="tools"><span class="tiny-pill"></span><div class="font-tools"><button class="tool" id="font-down" aria-label="Diminuir fonte">A-</button><button class="tool" id="font-up" aria-label="Aumentar fonte">A+</button></div><button class="tool icon-btn" id="theme" aria-label="Alternar tema">◐</button><button class="tool icon-btn" id="notifications" aria-label="Notificações">♧<i class="dot"></i></button><a class="avatar" href="profile.html" title="Meu perfil" aria-label="Meu perfil" style="text-decoration:none">MF</a></div>
+  <div class="tools"><button class="tool icon-btn" id="theme" aria-label="Alternar contraste">◐</button><a class="avatar" href="profile.html" title="Meu perfil" aria-label="Meu perfil" style="text-decoration:none">MF</a></div>
 </header>
 <main id="catalogo">
   <div class="welcome-row"><h1>Bem-vinda, Mariana Ferreira!</h1><label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="10.8" cy="10.8" r="6.5"/><path d="m16 16 5 5"/></svg><input id="search" placeholder="Buscar nos favoritos..." aria-label="Buscar nos favoritos"><span class="active-label">Ativo</span></label></div>
@@ -98,7 +98,6 @@ const favoriteKey='biblioteca-favoritos';function renderProfileFavorites(){const
 document.getElementById('search').addEventListener('input',e=>{const q=e.target.value.toLocaleLowerCase('pt-BR').trim();document.querySelectorAll('#favorite-books .book-card, #books .book-card').forEach(card=>card.style.display=card.dataset.search.includes(q)?'':'none')});
 let minutes=35;document.getElementById('add-time').addEventListener('click',()=>{minutes+=10;const pct=Math.min(100,Math.round(minutes/45*100));document.getElementById('ring').textContent=pct+'%';document.getElementById('goal-bar').style.width=pct+'%';document.getElementById('goal-text').textContent=minutes+' de 45 minutos lidos';notify('Mais 10 minutos adicionados à sua meta!')});
 document.getElementById('theme').addEventListener('click',()=>document.body.classList.toggle('dark'));
-let fontSize=16;document.getElementById('font-up').addEventListener('click',()=>{fontSize=Math.min(20,fontSize+1);document.body.style.fontSize=fontSize+'px'});document.getElementById('font-down').addEventListener('click',()=>{fontSize=Math.max(13,fontSize-1);document.body.style.fontSize=fontSize+'px'});
-document.getElementById('notifications').addEventListener('click',()=>notify('Você está em dia com suas leituras!'));
+
 </script>
 </body></html>

@@ -157,66 +157,69 @@ document.getElementById('theme').addEventListener('click',()=>document.body.clas
 
 <script>
 <script>
-/* Busca capas editoriais reais pelo título e autor usando Google Books e Open Library. */
+<script>
+/* Capas reais e sem repetição entre títulos diferentes. */
 (function(){
-  const cacheKey="biblioteca-capas-reais-v1";
+  const cacheKey="biblioteca-capas-reais-unicas-v2";
   let cache={};try{cache=JSON.parse(localStorage.getItem(cacheKey)||"{}")}catch(e){}
   const normalize=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
   const cards=()=>[...document.querySelectorAll(".book .cover img,.mini-books .mini img")];
+  const keyOf=src=>{
+    try{const u=new URL(src);if(u.hostname.includes("covers.openlibrary.org"))return "ol:"+u.pathname.match(/\/b\/id\/([^/]+)/)?.[1];const id=u.searchParams.get("id");if(id)return "gb:"+id;return u.origin+u.pathname}catch(e){return src}
+  };
   function validMatch(candidate,title,author){
     const a=normalize(candidate.title),b=normalize(title);
     if(!a||!b||!(a===b||a.startsWith(b+" ")||b.startsWith(a+" ")))return false;
     const authors=(candidate.authors||candidate.author_name||[]).map(normalize).join(" ");
-    const wanted=normalize(author);
-    const lastName=wanted.split(" ").filter(Boolean).slice(-1)[0];
-    return !lastName||!authors||authors.includes(lastName);
+    const last=normalize(author).split(" ").filter(Boolean).slice(-1)[0];
+    return !last||!authors||authors.includes(last);
   }
-  async function googleCover(title,author){
+  async function googleCandidates(title,author){
     const q="intitle:"+title+(author?" inauthor:"+author:"");
-    const url="https://www.googleapis.com/books/v1/volumes?q="+encodeURIComponent(q)+"&maxResults=8&printType=books";
-    const data=await fetch(url).then(r=>r.ok?r.json():null);
+    const data=await fetch("https://www.googleapis.com/books/v1/volumes?q="+encodeURIComponent(q)+"&maxResults=20&printType=books").then(r=>r.ok?r.json():null);
+    const out=[];
     for(const item of data?.items||[]){
-      const v=item.volumeInfo||{};
-      if(!validMatch({title:v.title,authors:v.authors},title,author))continue;
-      const links=v.imageLinks||{},src=links.thumbnail||links.smallThumbnail||links.small||links.medium;
-      if(src)return src.replace(/^http:/,"https:").replace("&edge=curl","");
+      const v=item.volumeInfo||{};if(!validMatch({title:v.title,authors:v.authors},title,author))continue;
+      const l=v.imageLinks||{},src=l.thumbnail||l.smallThumbnail||l.small||l.medium;
+      if(src)out.push(src.replace(/^http:/,"https:").replace("&edge=curl",""));
     }
-    return null;
+    return out;
   }
-  async function openLibraryCover(title,author){
-    const params=new URLSearchParams({title,limit:"8",fields:"title,author_name,cover_i"});
+  async function openLibraryCandidates(title,author){
+    const params=new URLSearchParams({title,limit:"20",fields:"title,author_name,cover_i"});
     if(author)params.set("author",author);
     const data=await fetch("https://openlibrary.org/search.json?"+params).then(r=>r.ok?r.json():null);
-    for(const item of data?.docs||[]){
-      if(item.cover_i&&validMatch(item,title,author))return "https://covers.openlibrary.org/b/id/"+item.cover_i+"-L.jpg?default=false";
-    }
-    return null;
+    return (data?.docs||[]).filter(x=>x.cover_i&&validMatch(x,title,author)).map(x=>"https://covers.openlibrary.org/b/id/"+x.cover_i+"-L.jpg?default=false");
   }
-  async function findCover(title,author){
-    if(cache[title])return cache[title];
-    let src=null;
-    try{src=await googleCover(title,author)}catch(e){}
-    if(!src)try{src=await openLibraryCover(title,author)}catch(e){}
-    cache[title]=src||"";
+  const assigned=new Map(),used=new Set();
+  async function candidatesFor(title,author){
+    if(cache[title]?.length)return cache[title];
+    let list=[];
+    try{list=await googleCandidates(title,author)}catch(e){}
+    try{list=list.concat(await openLibraryCandidates(title,author))}catch(e){}
+    const unique=[...new Map(list.map(src=>[keyOf(src),src])).values()];
+    cache[title]=unique;
     try{localStorage.setItem(cacheKey,JSON.stringify(cache))}catch(e){}
-    return src;
-  }
-  async function loadImage(img){
-    const card=img.closest(".book,.mini");if(!card)return;
-    const title=card.querySelector("h3")?.textContent?.trim();if(!title)return;
-    if(img.dataset.realCover===title)return;
-    img.dataset.realCover=title;
-    const author=card.querySelector(".author,.mini p")?.textContent?.trim()||"";
-    img.removeAttribute("src");
-    img.alt="Capa real de "+title+" — carregando";
-    const src=await findCover(title,author);
-    if(src){img.src=src;img.alt="Capa do livro "+title}
-    else{img.alt="Capa real não encontrada para "+title;img.classList.add("cover-not-found")}
+    return unique;
   }
   async function run(){
-    const imgs=cards();let index=0;
-    const workers=Array.from({length:4},async()=>{while(index<imgs.length){const img=imgs[index++];await loadImage(img)}});
-    await Promise.all(workers);
+    const imgs=cards(),seenTitles=new Set();
+    for(const img of imgs){
+      const card=img.closest(".book,.mini");if(!card)continue;
+      const title=card.querySelector("h3")?.textContent?.trim();if(!title)continue;
+      if(seenTitles.has(title))continue;seenTitles.add(title);
+      const author=card.querySelector(".author,.mini p")?.textContent?.trim()||"";
+      let src=assigned.get(title);
+      if(!src){
+        const options=await candidatesFor(title,author);
+        src=options.find(candidate=>!used.has(keyOf(candidate)))||null;
+        if(src){assigned.set(title,src);used.add(keyOf(src))}
+      }
+      for(const same of imgs.filter(x=>x.closest(".book,.mini")?.querySelector("h3")?.textContent?.trim()===title)){
+        if(src){same.src=src;same.alt="Capa real do livro "+title;same.dataset.realCover=title}
+        else{same.removeAttribute("src");same.alt="Não foi encontrada uma capa exclusiva para "+title;same.classList.add("cover-not-found");same.dataset.realCover=title}
+      }
+    }
   }
   run();
   const list=document.querySelector(".mini-books");

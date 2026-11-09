@@ -158,72 +158,78 @@ document.getElementById('theme').addEventListener('click',()=>document.body.clas
 <script>
 <script>
 <script>
-/* Capas reais e sem repetição entre títulos diferentes. */
+<script>
+/* Seleção global de capas reais: uma imagem por título, sem reutilização. */
 (function(){
-  const cacheKey="biblioteca-capas-reais-unicas-v2";
+  const cacheKey="biblioteca-capas-catalogo-v3";
   let cache={};try{cache=JSON.parse(localStorage.getItem(cacheKey)||"{}")}catch(e){}
-  const normalize=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
-  const cards=()=>[...document.querySelectorAll(".book .cover img,.mini-books .mini img")];
-  const keyOf=src=>{
-    try{const u=new URL(src);if(u.hostname.includes("covers.openlibrary.org"))return "ol:"+u.pathname.match(/\/b\/id\/([^/]+)/)?.[1];const id=u.searchParams.get("id");if(id)return "gb:"+id;return u.origin+u.pathname}catch(e){return src}
-  };
-  function validMatch(candidate,title,author){
-    const a=normalize(candidate.title),b=normalize(title);
-    if(!a||!b||!(a===b||a.startsWith(b+" ")||b.startsWith(a+" ")))return false;
-    const authors=(candidate.authors||candidate.author_name||[]).map(normalize).join(" ");
-    const last=normalize(author).split(" ").filter(Boolean).slice(-1)[0];
-    return !last||!authors||authors.includes(last);
+  const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim();
+  const getCards=()=>[...document.querySelectorAll(".book,.mini-books .mini")].filter(c=>c.querySelector(".cover img,h3"));
+  const titleOf=c=>c.querySelector("h3")?.textContent?.trim()||"";
+  const authorOf=c=>c.querySelector(".author,.mini p")?.textContent?.trim()||"";
+  function imageKey(src){
+    try{
+      const u=new URL(src);
+      if(u.hostname.includes("covers.openlibrary.org"))return "openlibrary:"+((u.pathname.match(/\/b\/id\/([^/]+)/)||[])[1]||u.pathname);
+      const id=u.searchParams.get("id");if(id)return "googlebooks:"+id;
+      return u.origin+u.pathname;
+    }catch(e){return src}
   }
-  async function googleCandidates(title,author){
-    const q="intitle:"+title+(author?" inauthor:"+author:"");
-    const data=await fetch("https://www.googleapis.com/books/v1/volumes?q="+encodeURIComponent(q)+"&maxResults=20&printType=books").then(r=>r.ok?r.json():null);
-    const out=[];
-    for(const item of data?.items||[]){
-      const v=item.volumeInfo||{};if(!validMatch({title:v.title,authors:v.authors},title,author))continue;
-      const l=v.imageLinks||{},src=l.thumbnail||l.smallThumbnail||l.small||l.medium;
-      if(src)out.push(src.replace(/^http:/,"https:").replace("&edge=curl",""));
-    }
-    return out;
+  function matches(item,title,author){
+    const candidate=norm(item.title),wanted=norm(title);
+    if(!candidate||!wanted||!(candidate===wanted||candidate.startsWith(wanted+" ")||wanted.startsWith(candidate+" ")))return false;
+    const authors=(item.authors||item.author_name||[]).map(norm).join(" ");
+    const parts=norm(author).split(" ").filter(Boolean);
+    const surname=parts[parts.length-1];
+    return !surname||!authors||authors.includes(surname);
   }
-  async function openLibraryCandidates(title,author){
-    const params=new URLSearchParams({title,limit:"20",fields:"title,author_name,cover_i"});
-    if(author)params.set("author",author);
-    const data=await fetch("https://openlibrary.org/search.json?"+params).then(r=>r.ok?r.json():null);
-    return (data?.docs||[]).filter(x=>x.cover_i&&validMatch(x,title,author)).map(x=>"https://covers.openlibrary.org/b/id/"+x.cover_i+"-L.jpg?default=false");
-  }
-  const assigned=new Map(),used=new Set();
-  async function candidatesFor(title,author){
-    if(cache[title]?.length)return cache[title];
-    let list=[];
-    try{list=await googleCandidates(title,author)}catch(e){}
-    try{list=list.concat(await openLibraryCandidates(title,author))}catch(e){}
-    const unique=[...new Map(list.map(src=>[keyOf(src),src])).values()];
-    cache[title]=unique;
+  async function fetchCandidates(title,author){
+    if(Array.isArray(cache[title]))return cache[title];
+    const found=[];
+    try{
+      const q="intitle:"+title+(author?" inauthor:"+author:"");
+      const data=await fetch("https://www.googleapis.com/books/v1/volumes?q="+encodeURIComponent(q)+"&maxResults=30&printType=books").then(r=>r.ok?r.json():null);
+      for(const v of data?.items||[]){
+        const info=v.volumeInfo||{};
+        if(!matches({title:info.title,authors:info.authors},title,author))continue;
+        const links=info.imageLinks||{},src=links.thumbnail||links.smallThumbnail||links.small||links.medium;
+        if(src)found.push(src.replace(/^http:/,"https:").replace("&edge=curl",""));
+      }
+    }catch(e){}
+    try{
+      const p=new URLSearchParams({title,limit:"30",fields:"title,author_name,cover_i"});if(author)p.set("author",author);
+      const data=await fetch("https://openlibrary.org/search.json?"+p).then(r=>r.ok?r.json():null);
+      for(const item of data?.docs||[])if(item.cover_i&&matches(item,title,author))found.push("https://covers.openlibrary.org/b/id/"+item.cover_i+"-L.jpg?default=false");
+    }catch(e){}
+    cache[title]=[...new Map(found.map(src=>[imageKey(src),src])).values()];
     try{localStorage.setItem(cacheKey,JSON.stringify(cache))}catch(e){}
-    return unique;
+    return cache[title];
   }
-  async function run(){
-    const imgs=cards(),seenTitles=new Set();
-    for(const img of imgs){
-      const card=img.closest(".book,.mini");if(!card)continue;
-      const title=card.querySelector("h3")?.textContent?.trim();if(!title)continue;
-      if(seenTitles.has(title))continue;seenTitles.add(title);
-      const author=card.querySelector(".author,.mini p")?.textContent?.trim()||"";
-      let src=assigned.get(title);
-      if(!src){
-        const options=await candidatesFor(title,author);
-        src=options.find(candidate=>!used.has(keyOf(candidate)))||null;
-        if(src){assigned.set(title,src);used.add(keyOf(src))}
+  let running=false,again=false;
+  async function applyUniqueCovers(){
+    if(running){again=true;return}running=true;
+    do{
+      again=false;
+      const cards=getCards(),unique=[...new Map(cards.map(c=>[titleOf(c),c]).filter(([t])=>t)).values()];
+      const results=await Promise.all(unique.map(async card=>({card,title:titleOf(card),options:await fetchCandidates(titleOf(card),authorOf(card))})));
+      const used=new Set(),selected=new Map();
+      for(const item of results){
+        const chosen=item.options.find(src=>!used.has(imageKey(src)));
+        if(chosen){used.add(imageKey(chosen));selected.set(item.title,chosen)}
       }
-      for(const same of imgs.filter(x=>x.closest(".book,.mini")?.querySelector("h3")?.textContent?.trim()===title)){
-        if(src){same.src=src;same.alt="Capa real do livro "+title;same.dataset.realCover=title}
-        else{same.removeAttribute("src");same.alt="Não foi encontrada uma capa exclusiva para "+title;same.classList.add("cover-not-found");same.dataset.realCover=title}
+      for(const card of cards){
+        const title=titleOf(card),img=card.querySelector(".cover img");
+        if(!img)continue;
+        const src=selected.get(title);
+        if(src){img.src=src;img.alt="Capa real de "+title;img.dataset.realCover=title;img.classList.remove("cover-not-found")}
+        else{img.removeAttribute("src");img.alt="Não foi encontrada uma capa exclusiva para "+title;img.dataset.realCover=title;img.classList.add("cover-not-found")}
       }
-    }
+    }while(again);
+    running=false;
   }
-  run();
-  const list=document.querySelector(".mini-books");
-  if(list)new MutationObserver(()=>run()).observe(list,{childList:true,subtree:true});
+  applyUniqueCovers();
+  const observer=new MutationObserver(()=>applyUniqueCovers());
+  observer.observe(document.body,{childList:true,subtree:true});
 })();
 </script>
 </body></html>
